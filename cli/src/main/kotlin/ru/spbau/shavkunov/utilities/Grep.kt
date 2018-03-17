@@ -9,6 +9,9 @@ import ru.spbau.shavkunov.InvalidArgumentException
 import java.nio.file.Paths
 import java.util.regex.Pattern
 
+/**
+ * Bash grep utility implementation
+ */
 object Grep: Utility {
     private val parser: CommandLineParser = DefaultParser()
     private val options: Options = Options()
@@ -17,6 +20,18 @@ object Grep: Utility {
         initOptions()
     }
 
+    /**
+     * Executing with following arguments
+     * if input stream isn't empty, so there is must be first argument -- pattern to find in input stream
+     * if input stream is empty, first argument must be also pattern to match,
+     * next arguments -- list of files, content of each will be searched to match pattern
+     * pattern can be regex too
+     *
+     * additional options:
+     * -i -- case insensitive search
+     * -w -- whole words search
+     * -A n -- add to output n additional lines after found line
+     */
     override fun execute(args: List<String>, input: String): ExecutionResult {
         val commandLine = parser.parse(options, args.toTypedArray())
 
@@ -53,6 +68,14 @@ object Grep: Utility {
         return ExecutionResult(output, false)
     }
 
+    /**
+     * Implementation grep search
+     * inputContent -- where to search
+     * inputPattern -- what we need to search
+     * insensitivity flag -- insensitive search if true
+     * same for wholeWords
+     * additional lines -- additional lines after found correct line
+     */
     private fun grep(inputContent: String, inputPattern: String, insensitivity: Boolean,
                      wholeWords: Boolean, additionalLines: Int): String {
         var content = inputContent
@@ -83,11 +106,18 @@ object Grep: Utility {
         return output.joinToString("\n", "", "\n")
     }
 
+    /**
+     * Adding lines starting from startIndex in lines input.
+     * Amount of lines specified in amount.
+     */
     private fun addLines(lines: List<String>, startIndex: Int, amount: Int): String {
         val slice = lines.drop(startIndex).take(amount + 1)
         return slice.joinToString("\n", "")
     }
 
+    /**
+     * Initializing options with extra flags
+     */
     private fun initOptions() {
         val insensitivity = Option("i", "insensitivity mode")
         val word = Option("w", "search whole words")

@@ -2,12 +2,8 @@ package utilities
 
 import org.apache.commons.io.FileUtils
 import org.junit.Test
-import ru.spbau.shavkunov.utilities.Cat
 import ru.spbau.shavkunov.utilities.Grep
-import ru.spbau.shavkunov.utilities.Pwd
 import java.nio.charset.Charset
-import java.util.regex.Pattern
-import kotlin.math.exp
 import kotlin.test.assertEquals
 
 class GrepTest {
