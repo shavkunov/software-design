@@ -12,6 +12,7 @@ fun main(args: Array<String>) {
     environment.addUtility("exit", Exit)
     environment.addUtility("pwd", Pwd)
     environment.addUtility("wc", WordCount)
+    environment.addUtility("grep", Grep)
 
     val cli = CommandLine(environment)
 
