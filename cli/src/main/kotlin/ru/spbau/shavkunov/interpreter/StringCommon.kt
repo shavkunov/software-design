@@ -1,6 +1,4 @@
-package kotlin.ru.spbau.shavkunov.interpreter
-
-import ru.spbau.shavkunov.interpreter.EscapeChar
+package ru.spbau.shavkunov.interpreter
 
 object StringCommon {
     fun split(input: List<EscapeChar>, predicate: (EscapeChar) -> Boolean): List<List<EscapeChar>> {
