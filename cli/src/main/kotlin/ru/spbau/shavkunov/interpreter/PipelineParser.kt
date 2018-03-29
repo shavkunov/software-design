@@ -10,6 +10,7 @@ import ru.spbau.shavkunov.interpreter.Preprocessor.Companion.pipe
  * Pipeline parser creates several commands divided by | and executes them consistently, like bash pipeline
  */
 object PipelineParser : Parser {
+    @Throws(EmptyCommandException::class)
     override fun parse(input: List<EscapeChar>): SystemOperator? {
         val commands = split(input, pipe)
 

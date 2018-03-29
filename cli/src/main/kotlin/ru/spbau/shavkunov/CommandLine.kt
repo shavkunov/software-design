@@ -22,9 +22,14 @@ class CommandLine(private val environment: Environment) {
                     break
                 }
 
-            } catch (e: Exception) {
-                e.printStackTrace()
-                break
+               // kotlin doesn't support multiple exceptions:
+               // https://discuss.kotlinlang.org/t/does-kotlin-have-multi-catch/486/5
+            } catch (parsingException: ParsingException) {
+                parsingException.printStackTrace()
+            } catch (argumentException: InvalidArgumentException) {
+                argumentException.printStackTrace()
+            } catch (emptyCommandException: EmptyCommandException) {
+                emptyCommandException.printStackTrace()
             }
         }
     }

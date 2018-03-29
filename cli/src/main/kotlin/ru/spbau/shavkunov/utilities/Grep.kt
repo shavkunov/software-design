@@ -32,6 +32,7 @@ object Grep: Utility {
      * -w -- whole words search
      * -A n -- add to output n additional lines after found line
      */
+    @Throws(InvalidArgumentException::class)
     override fun execute(args: List<String>, input: String): ExecutionResult {
         val commandLine = parser.parse(options, args.toTypedArray())
 

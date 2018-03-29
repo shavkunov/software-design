@@ -8,6 +8,7 @@ import ru.spbau.shavkunov.commands.SystemOperator
  * Creating simple standard command with first token as a name and other tokens -- as args.
  */
 object BuiltinCommandParser : Parser {
+    @Throws(EmptyCommandException::class)
     override fun parse(input: List<EscapeChar>): SystemOperator {
         val tokens = Tokenizer.tokenize(input)
 

@@ -75,6 +75,7 @@ object Tokenizer {
     /**
      * Process tokens which are strongly escaped
      */
+    @Throws(ParsingException::class)
     private fun processStrongQuotes(input: List<EscapeChar>): Token {
         droppedSymbols = 0
         val indexOfStrong = input.indexOfFirst { it.character == strong }
@@ -121,6 +122,7 @@ object Tokenizer {
     /**
      * Process tokens which are weakly escaped
      */
+    @Throws(ParsingException::class)
     private fun processWeakQuotes(input: List<EscapeChar>): Token {
         var indexOfWeak = input.indexOfFirst { it.character == weak }
 
