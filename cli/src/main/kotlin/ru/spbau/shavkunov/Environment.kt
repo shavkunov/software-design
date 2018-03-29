@@ -26,7 +26,15 @@ class Environment {
      * input -- is input stream from another commmand
      */
     fun executeCommand(name: String, args: List<String>, input: String): ExecutionResult {
-        return commands[name]?.execute(args, input) ?: executeOuterCommand(name, args, input)
+        if (commands[name] != null) {
+            return commands[name]!!.execute(args, input)
+        }
+
+        return try {
+            executeOuterCommand(name, args, input)
+        } catch (e: Exception) {
+            ExecutionResult("Wrong input", false)
+        }
     }
 
     /**
