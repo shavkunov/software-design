@@ -9,7 +9,7 @@ import ru.spbau.shavkunov.interpreter.SimpleToken
 import ru.spbau.shavkunov.utilities.Cat
 import kotlin.test.assertEquals
 
-class PIpelineTest {
+class PipelineTest {
     @Test
     fun test() {
         val environment = Environment()

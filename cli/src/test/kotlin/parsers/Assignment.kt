@@ -5,6 +5,7 @@ import ru.spbau.shavkunov.Environment
 import ru.spbau.shavkunov.interpreter.AssignmentParser
 import ru.spbau.shavkunov.interpreter.BuiltinCommandParser
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 class Assignment {
     @Test
@@ -23,7 +24,7 @@ class Assignment {
         val line = createEscapedString()
 
         val operator = AssignmentParser.parse(line)
-        assertEquals(null, operator)
+        assertNull(operator)
     }
 
     @Test

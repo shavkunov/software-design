@@ -7,6 +7,7 @@ import ru.spbau.shavkunov.utilities.Echo
 import ru.spbau.shavkunov.utilities.WordCount
 import java.nio.charset.Charset
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 class PipelineTest {
     @Test
@@ -40,6 +41,6 @@ class PipelineTest {
         val text = createEscapedString("echo 123")
 
         val operator = PipelineParser.parse(text)
-        assertEquals(null, operator)
+        assertNull(operator)
     }
 }

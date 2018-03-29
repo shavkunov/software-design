@@ -3,6 +3,7 @@ package utilities
 import org.junit.Test
 import ru.spbau.shavkunov.utilities.Echo
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 
 class EchoTest {
     @Test
@@ -10,6 +11,6 @@ class EchoTest {
         val result = Echo.execute(listOf("123"), "")
 
         assertEquals("123\n", result.output)
-        assertEquals(false, result.isExit)
+        assertFalse(result.isExit)
     }
 }

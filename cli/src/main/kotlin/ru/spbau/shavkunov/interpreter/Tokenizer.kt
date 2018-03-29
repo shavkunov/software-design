@@ -28,20 +28,19 @@ object Tokenizer {
      * Creating tokens from user input
      */
     fun tokenize(input: List<EscapeChar>): List<Token> {
-        val words = split(input, { !it.isEscaped && it.character.isWhitespace()})
+
+        return split(input, { !it.isEscaped && it.character.isWhitespace()})
                     .filter { it.isNotEmpty() }
                     .map { processToken(it) }
-
-        return words
     }
 
     /**
      * Processing each token after splitting by space
      */
-    private fun processToken(input: List<EscapeChar>): Token {
+    private fun processToken(immutableInput: List<EscapeChar>): Token {
         val list = mutableListOf<Token>()
 
-        var input = input
+        var input = immutableInput
         while (input.isNotEmpty()) {
             var token: Token?
 
@@ -123,14 +122,14 @@ object Tokenizer {
      * Process tokens which are weakly escaped
      */
     @Throws(ParsingException::class)
-    private fun processWeakQuotes(input: List<EscapeChar>): Token {
-        var indexOfWeak = input.indexOfFirst { it.character == weak }
+    private fun processWeakQuotes(immutableInput: List<EscapeChar>): Token {
+        val indexOfWeak = immutableInput.indexOfFirst { it.character == weak }
 
         if (indexOfWeak == -1) {
             throw ParsingException()
         }
 
-        var input = input
+        var input = immutableInput
         val list = mutableListOf<Token>()
         var inputSize = indexOfWeak
         while (inputSize != 0) {

@@ -5,6 +5,8 @@ import ru.spbau.shavkunov.Environment
 import ru.spbau.shavkunov.commands.AssignmentOperator
 import ru.spbau.shavkunov.interpreter.*
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class PreproccessorTest {
     @Test
@@ -15,7 +17,7 @@ class PreproccessorTest {
         val result = preprocessor.process(text)
 
         for (char: EscapeChar in result) {
-            assertEquals(false, char.isEscaped)
+            assertFalse(char.isEscaped)
         }
 
         assertEquals(text, createString(result))
@@ -29,9 +31,9 @@ class PreproccessorTest {
         val result = preprocessor.process(text)
         for ((index, char: EscapeChar) in result.withIndex()) {
             if (index <= 5 || index == 15) {
-                assertEquals(false, char.isEscaped)
+                assertFalse(char.isEscaped)
             } else {
-                assertEquals(true, char.isEscaped)
+                assertTrue(char.isEscaped)
             }
         }
     }
@@ -44,9 +46,9 @@ class PreproccessorTest {
         val result = preprocessor.process(text)
         for ((index, char: EscapeChar) in result.withIndex()) {
             if (index <= 5 || index == 15) {
-                assertEquals(false, char.isEscaped)
+                assertFalse(char.isEscaped)
             } else {
-                assertEquals(true, char.isEscaped)
+                assertTrue(char.isEscaped)
             }
         }
     }

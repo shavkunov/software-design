@@ -5,6 +5,7 @@ import org.junit.Test
 import ru.spbau.shavkunov.utilities.WordCount
 import java.nio.charset.Charset
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 
 class WordCountTest {
     @Test
@@ -25,7 +26,7 @@ class WordCountTest {
         val result = WordCount.execute(listOf(first.absolutePath, second.absolutePath), "")
 
         assertEquals("2 4 17\n1 1 6", result.output)
-        assertEquals(false, result.isExit)
+        assertFalse(result.isExit)
     }
 
     @Test
@@ -34,6 +35,6 @@ class WordCountTest {
         val result = WordCount.execute(listOf(), content)
 
         assertEquals("2 4 17", result.output)
-        assertEquals(false, result.isExit)
+        assertFalse(result.isExit)
     }
 }

@@ -3,6 +3,7 @@ import ru.spbau.shavkunov.Environment
 import ru.spbau.shavkunov.utilities.Cat
 import java.io.IOException
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 
 class EnvironmentTest {
     @Test
@@ -20,7 +21,7 @@ class EnvironmentTest {
         environment.addUtility("cat", Cat)
 
         val result = environment.executeCommand("cat", emptyList(), "123")
-        assertEquals(false, result.isExit)
+        assertFalse(result.isExit)
         assertEquals("123", result.output)
     }
 
@@ -29,8 +30,8 @@ class EnvironmentTest {
         val environment = Environment()
 
         val result = environment.executeCommand("echo", listOf("123"), "")
-        assertEquals(result.isExit, false)
-        assertEquals(result.output, "123\n")
+        assertFalse(result.isExit)
+        assertEquals("123\n", result.output)
 
         environment.executeCommand("olololo", emptyList(), "123")
     }

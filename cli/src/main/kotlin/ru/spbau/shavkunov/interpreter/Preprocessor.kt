@@ -19,6 +19,10 @@ class Preprocessor {
 
     private var escaping = EscapeType.NONE
 
+    /**
+     * Transform user input string to string with EscapeChars
+     * Each EscapeChars contain information is char escaped or not.
+     */
     fun process(string: String): List<EscapeChar> {
         escaping = EscapeType.NONE
         val result = mutableListOf<EscapeChar>()
@@ -46,11 +50,7 @@ class Preprocessor {
                     escaping = EscapeType.NONE
                 }
 
-                if (char == substitution) {
-                    return false
-                }
-
-                return true
+                return char != substitution
             }
 
             EscapeType.NONE -> {

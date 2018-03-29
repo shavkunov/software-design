@@ -6,6 +6,7 @@ import org.junit.rules.TemporaryFolder
 import ru.spbau.shavkunov.utilities.Cat
 import java.nio.charset.Charset
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 
 class CatTest {
     @Test
@@ -29,6 +30,6 @@ class CatTest {
         val expected = "123\noollo\n"
 
         assertEquals(expected, result.output)
-        assertEquals(false, result.isExit)
+        assertFalse(result.isExit)
     }
 }
