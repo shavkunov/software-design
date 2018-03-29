@@ -4,6 +4,9 @@ import ru.spbau.shavkunov.Environment
 import ru.spbau.shavkunov.ExecutionResult
 import ru.spbau.shavkunov.interpreter.Token
 
+/**
+ * Operator, which executes internal shell command or outer shell command
+ */
 class BuiltinOperator(val name: Token, val args: List<Token>) : SystemOperator {
     override fun execute(input: String, environment: Environment): ExecutionResult {
         return environment.executeCommand(
