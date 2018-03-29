@@ -1,10 +1,10 @@
 package ru.spbau.shavkunov.interpreter
 
 import ru.spbau.shavkunov.ParsingException
-import ru.spbau.shavkunov.interpreter.InputHandler.split
 import ru.spbau.shavkunov.interpreter.Preprocessor.Companion.strong
 import ru.spbau.shavkunov.interpreter.Preprocessor.Companion.substitution
 import ru.spbau.shavkunov.interpreter.Preprocessor.Companion.weak
+import ru.spbau.shavkunov.interpreter.StringCommon.split
 
 /**
  * Tokenizer creates list of tokens from user input
