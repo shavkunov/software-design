@@ -42,7 +42,11 @@ object Grep: Utility {
         if (commandLine.hasOption("A")) {
             val text = commandLine.getOptionValue("A")
 
-            additionalLines = Integer.valueOf(text)
+            try {
+                additionalLines = Integer.valueOf(text)
+            } catch (_: Exception) {
+                throw InvalidArgumentException()
+            }
         }
 
         if (commandLine.args.isEmpty()) {

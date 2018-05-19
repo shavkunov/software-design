@@ -1,6 +1,7 @@
 package ru.spbau.shavkunov
 
-import ru.spbau.shavkunov.utilities.Utility
+import ru.spbau.shavkunov.utilities.*
+import java.io.IOException
 import java.nio.charset.Charset
 
 
@@ -32,8 +33,10 @@ class Environment {
 
         return try {
             executeOuterCommand(name, args, input)
-        } catch (e: Exception) {
-            ExecutionResult("Wrong input", false)
+        } catch (io: IOException) {
+            ExecutionResult("Command $name failed: ${io.message}", false)
+        } catch (interrupted: InterruptedException) {
+            ExecutionResult("Command $name failed: ${interrupted.message}", false)
         }
     }
 
@@ -71,5 +74,14 @@ class Environment {
     }
 }
 
+fun createStandardEnvironment(): Environment {
+    val environment = Environment()
+    environment.addUtility("cat", Cat)
+    environment.addUtility("echo", Echo)
+    environment.addUtility("exit", Exit)
+    environment.addUtility("pwd", Pwd)
+    environment.addUtility("wc", WordCount)
+    environment.addUtility("grep", Grep)
 
-
+    return environment
+}

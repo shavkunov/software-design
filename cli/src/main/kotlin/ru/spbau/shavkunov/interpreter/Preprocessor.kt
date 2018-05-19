@@ -36,9 +36,9 @@ class Preprocessor {
     }
 
     private fun checkEscape(char: Char): Boolean {
-        when(escaping) {
+        when (escaping) {
             EscapeType.WEAK -> {
-                if (char == strong) {
+                if (char == weak) {
                     escaping = EscapeType.NONE
                 }
 
@@ -46,7 +46,7 @@ class Preprocessor {
             }
 
             EscapeType.STRONG -> {
-                if (char == weak) {
+                if (char == strong) {
                     escaping = EscapeType.NONE
                 }
 

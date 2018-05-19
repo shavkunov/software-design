@@ -6,15 +6,7 @@ import ru.spbau.shavkunov.utilities.*
  * Init default environment and run CLI
  */
 fun main(args: Array<String>) {
-    val environment = Environment()
-    environment.addUtility("cat", Cat)
-    environment.addUtility("echo", Echo)
-    environment.addUtility("exit", Exit)
-    environment.addUtility("pwd", Pwd)
-    environment.addUtility("wc", WordCount)
-    environment.addUtility("grep", Grep)
-
-    val cli = CommandLine(environment)
+    val cli = CommandLine(createStandardEnvironment())
 
     cli.run()
 }
