@@ -4,6 +4,7 @@ import org.junit.Test
 import ru.spbau.shavkunov.Environment
 import ru.spbau.shavkunov.commands.AssignmentOperator
 import ru.spbau.shavkunov.interpreter.*
+import ru.spbau.shavkunov.utilities.Echo
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -59,6 +60,7 @@ class PreproccessorTest {
 
         val assignmentOperator = AssignmentOperator("expand", "value")
         val env = Environment()
+        env.addUtility("echo", Echo)
         assignmentOperator.execute("", env)
 
         val operator = InputHandler.handle(text)
@@ -73,6 +75,7 @@ class PreproccessorTest {
 
         val assignmentOperator = AssignmentOperator("expand", "value")
         val env = Environment()
+        env.addUtility("echo", Echo)
         assignmentOperator.execute("", env)
 
         val operator = InputHandler.handle(text)

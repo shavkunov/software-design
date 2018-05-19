@@ -29,6 +29,7 @@ class PipelineTest {
         val text = createEscapedString("echo 123 | wc")
 
         val env = Environment()
+        env.addUtility("echo", Echo)
         env.addUtility("wc", WordCount)
         val operator = PipelineParser.parse(text)!!
         val result = operator.execute("", env)

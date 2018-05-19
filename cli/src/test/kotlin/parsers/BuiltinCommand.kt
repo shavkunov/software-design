@@ -33,9 +33,10 @@ class BuiltinCommandTest {
         assertEquals("arg1 arg2\n", result.output)
     }
 
-    @Test(expected = IOException::class)
+    @Test
     fun noUtilityTest() {
         val env = Environment()
+        env.addUtility("echo", Echo)
 
         var text = createEscapedString("echo arg1 arg2 arg3")
         var operator = BuiltinCommandParser.parse(text)
@@ -44,6 +45,9 @@ class BuiltinCommandTest {
 
         text = createEscapedString("unknown_command arg1 arg2 arg3")
         operator = BuiltinCommandParser.parse(text)
-        operator.execute("", env)
+        val failedResult = operator.execute("", env)
+        val error = "Command unknown_command failed: Cannot run program \"unknown_command\": " +
+                "error=2, No such file or directory"
+        assertEquals(error, failedResult.output)
     }
 }

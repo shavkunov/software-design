@@ -7,12 +7,14 @@ import ru.spbau.shavkunov.commands.BuiltinOperator
 import ru.spbau.shavkunov.commands.PipelineOperator
 import ru.spbau.shavkunov.interpreter.SimpleToken
 import ru.spbau.shavkunov.utilities.Cat
+import ru.spbau.shavkunov.utilities.Echo
 import kotlin.test.assertEquals
 
 class PipelineTest {
     @Test
     fun test() {
         val environment = Environment()
+        environment.addUtility("echo", Echo)
         environment.addUtility("cat", Cat)
 
         val left = BuiltinOperator(SimpleToken("echo"),

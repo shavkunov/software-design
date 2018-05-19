@@ -4,6 +4,7 @@ import org.junit.Test
 import ru.spbau.shavkunov.Environment
 import ru.spbau.shavkunov.interpreter.AssignmentParser
 import ru.spbau.shavkunov.interpreter.BuiltinCommandParser
+import ru.spbau.shavkunov.utilities.Echo
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
@@ -31,6 +32,7 @@ class Assignment {
     fun testWithCommand() {
         val line = createEscapedString("echo=1234")
         val env = Environment()
+        env.addUtility("echo", Echo)
 
         val operator = AssignmentParser.parse(line)!!
         operator.execute("", env)

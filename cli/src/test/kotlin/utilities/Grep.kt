@@ -2,6 +2,7 @@ package utilities
 
 import org.apache.commons.io.FileUtils
 import org.junit.Test
+import ru.spbau.shavkunov.InvalidArgumentException
 import ru.spbau.shavkunov.utilities.Grep
 import java.nio.charset.Charset
 import kotlin.test.assertEquals
@@ -51,7 +52,7 @@ class GrepTest {
         assertEquals("perfect match\nperfect?\n", result.output)
     }
 
-    @Test(expected = NumberFormatException::class)
+    @Test(expected = InvalidArgumentException::class)
     fun testAdditionalLines() {
         val content = "123\ntest\ntest\nmaybe another?\ntest\n123"
         val result = Grep.execute(listOf("123", "-A", "1"), content)
@@ -63,7 +64,7 @@ class GrepTest {
         val result2 = Grep.execute(listOf("-A", "3", "123"), content)
         assertEquals("123\ntest\ntest\nmaybe another?\n123\n", result2.output)
 
-        val result3 = Grep.execute(listOf("-A", "TEST", "123"), content)
+        Grep.execute(listOf("-A", "TEST", "123"), content)
     }
 
     @Test
