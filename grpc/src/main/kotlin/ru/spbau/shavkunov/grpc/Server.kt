@@ -8,14 +8,23 @@ import java.util.concurrent.ConcurrentHashMap
 import java.time.Instant
 
 
-
 private val LOGGER = LoggerFactory.getLogger("ChatServiceImpl")
 
+/**
+ * Server observer handling
+ * Shutdown callback shutdowns the underlying gRPC server
+ */
 internal class ChatServiceImpl(val shutdownCallback: () -> Unit) : ChatServiceGrpc.ChatServiceImplBase() {
     override fun chat(responseObserver: StreamObserver<Chat.ChatMessageFromServer>): StreamObserver<Chat.ChatMessage> {
         observers.add(responseObserver)
 
+        /**
+         * Handling messages from client
+         */
         return object : StreamObserver<Chat.ChatMessage> {
+            /**
+             * Sending message with timestamp
+             */
             override fun onNext(value: Chat.ChatMessage) {
                 LOGGER.info("Received from client {} message: {}", value.from, value)
 
@@ -36,13 +45,18 @@ internal class ChatServiceImpl(val shutdownCallback: () -> Unit) : ChatServiceGr
                 }
             }
 
+            /**
+             * Shutdowns underlying server
+             */
             override fun onError(t: Throwable) {
                 shutdownCallback()
             }
 
+            /**
+             * Removes client
+             */
             override fun onCompleted() {
                 observers.remove(responseObserver)
-                shutdownCallback()
             }
         }
     }
@@ -54,12 +68,18 @@ internal class ChatServiceImpl(val shutdownCallback: () -> Unit) : ChatServiceGr
 
 private val SERVER_LOGGER = LoggerFactory.getLogger("Server")
 
+/**
+ * gRPC Server wrapper
+ */
 class Server(port: Int) {
     private val grpcServer = ServerBuilder
             .forPort(port)
             .addService(ChatServiceImpl(shutdownCallback()))
             .build()
 
+    /**
+     * Start the server
+     */
     fun start() {
         SERVER_LOGGER.info("Server starting...")
         grpcServer.start()
@@ -67,10 +87,16 @@ class Server(port: Int) {
         grpcServer.awaitTermination()
     }
 
+    /**
+     * Shutdown the server
+     */
     fun shutdown() {
         shutdownCallback()()
     }
 
+    /**
+     * Shutdown callback, that need to be executed in implementation of chat service due to failure.
+     */
     private fun shutdownCallback(): () -> Unit {
         return {
             SERVER_LOGGER.info("Shutdown the server")
@@ -79,6 +105,10 @@ class Server(port: Int) {
     }
 }
 
+/**
+ * CLI for server
+ * Only arg is port number
+ */
 fun main(args: Array<String>) {
     val port = Integer.parseInt(args[0])
     Server(port).start()

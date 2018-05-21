@@ -9,6 +9,12 @@ import java.util.*
 private val LOGGER = LoggerFactory.getLogger("Client")
 const val MILLIS_IN_SECONDS = 1000
 
+/**
+ * Client for chatting
+ * host -- name of connecting host
+ * port -- host port
+ * name -- user name in chat
+ */
 class Client(host: String,
              port: Int,
              private val name: String) {
@@ -20,6 +26,9 @@ class Client(host: String,
     private val stub = ChatServiceGrpc.newStub(channel)
     var observer: StreamObserver<Chat.ChatMessage>?= null
 
+    /**
+     * Connecting to server. Need to be done before sending messages.
+     */
     fun connect() {
         println("Enter your message: ")
         observer = stub.chat(object: StreamObserver<Chat.ChatMessageFromServer> {
@@ -41,6 +50,9 @@ class Client(host: String,
         })
     }
 
+    /**
+     * Send message to chat
+     */
     fun sendMessage(message: String) {
         observer!!.onNext(Chat.ChatMessage.newBuilder()
                 .setFrom(name)
@@ -48,12 +60,20 @@ class Client(host: String,
                 .build())
     }
 
+    /**
+     * Shutdown the client
+     */
     fun shutdown() {
         channel.shutdown()
     }
 }
 
-
+/**
+ * CLI for client. Args:
+ * first -- host
+ * second -- port(Integer value)
+ * third -- name in chat
+ */
 fun main(args: Array<String>) {
     val host = args[0]
     val port = Integer.parseInt(args[1])
