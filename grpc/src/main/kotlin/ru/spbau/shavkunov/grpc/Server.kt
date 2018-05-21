@@ -67,6 +67,10 @@ class Server(port: Int) {
         grpcServer.awaitTermination()
     }
 
+    fun shutdown() {
+        shutdownCallback()()
+    }
+
     private fun shutdownCallback(): () -> Unit {
         return {
             SERVER_LOGGER.info("Shutdown the server")
