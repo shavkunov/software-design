@@ -3,8 +3,10 @@ package utilities
 import org.apache.commons.io.FileUtils
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
+import ru.spbau.shavkunov.WorkingDirectory
 import ru.spbau.shavkunov.utilities.Cat
 import java.nio.charset.Charset
+import java.nio.file.Paths
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 
@@ -25,7 +27,11 @@ class CatTest {
         FileUtils.writeStringToFile(first, content1, Charset.defaultCharset())
         FileUtils.writeStringToFile(second, content2, Charset.defaultCharset())
 
-        val result = Cat.execute(listOf(first.absolutePath, second.absolutePath), "")
+        val result = Cat.execute(
+            WorkingDirectory(Paths.get(System.getProperty("user.dir"))),
+            listOf(first.absolutePath, second.absolutePath),
+            ""
+        )
 
         val expected = "123\noollo\n"
 
