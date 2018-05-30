@@ -73,7 +73,7 @@ object Grep: Utility {
         val pattern = commandLine.args[0]
         val output = files.joinToString("\n", "", "") {
             grep(getFileContent(
-                workingDirectory.path.resolve(Paths.get(it))),
+                workingDirectory.getPath().resolve(Paths.get(it))),
                 pattern,
                 insensitivity,
                 wholeWords,

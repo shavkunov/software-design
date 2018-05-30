@@ -30,7 +30,7 @@ object WordCount : Utility {
      */
     private fun countFromArgs(workingDirectory: WorkingDirectory, args: List<String>): String {
         return args.joinToString("\n") {
-            countFromFile(workingDirectory.path.resolve(Paths.get(it)))
+            countFromFile(workingDirectory.getPath().resolve(Paths.get(it)))
         }
     }
 

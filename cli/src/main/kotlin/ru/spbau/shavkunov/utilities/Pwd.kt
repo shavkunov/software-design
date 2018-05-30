@@ -13,6 +13,6 @@ object Pwd : Utility {
         args: List<String>,
         input: String
     ): ExecutionResult {
-        return ExecutionResult(workingDirectory.path.toString() + "\n", false)
+        return ExecutionResult(workingDirectory.getPath().toString() + "\n", false)
     }
 }

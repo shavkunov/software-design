@@ -20,7 +20,7 @@ object Cat : Utility {
         input: String
     ): ExecutionResult {
         val fileOutput = args.joinToString("\n", "", "\n") {
-            getFileContent(workingDirectory.path.resolve(Paths.get(it)))
+            getFileContent(workingDirectory.getPath().resolve(Paths.get(it)))
         }
 
         val output = if (args.isEmpty()) input else fileOutput

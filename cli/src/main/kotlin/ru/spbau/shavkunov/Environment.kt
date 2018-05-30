@@ -78,7 +78,20 @@ class Environment {
     }
 }
 
-data class WorkingDirectory(var path: Path)
+/**
+ * This class stores path to a current working directory and allows to change it.
+ */
+class WorkingDirectory(path: Path) {
+    private var path: Path = path.normalize()
+
+    fun getPath(): Path {
+        return path
+    }
+
+    fun setPath(newPath: Path) {
+        path = newPath.normalize()
+    }
+}
 
 fun createStandardEnvironment(): Environment {
     val environment = Environment()
@@ -88,6 +101,8 @@ fun createStandardEnvironment(): Environment {
     environment.addUtility("pwd", Pwd)
     environment.addUtility("wc", WordCount)
     environment.addUtility("grep", Grep)
+    environment.addUtility("cd", ChangeDirectory)
+    environment.addUtility("ls", ListFiles)
 
     return environment
 }
