@@ -21,13 +21,30 @@ object ChangeDirectory : Utility {
             }
 
             1 -> {
-                workingDirectory.setPath(workingDirectory.getPath().resolve(Paths.get(args[0])))
+                val newPath = workingDirectory.getPath().resolve(Paths.get(args[0]))
+                val newFile = newPath.toFile()
+
+                if (!newFile.exists()) {
+                    return ExecutionResult(noSuchFolderMessage, false)
+                }
+
+                if (!newFile.isDirectory) {
+                    return ExecutionResult(notAFolderMessage, false)
+                }
+
+                workingDirectory.setPath(newPath)
 
                 ""
             }
 
-            else -> "Invalid number of arguments"
+            else -> invalidNumOfArgsMessage
         },
         false)
     }
+
+    const val noSuchFolderMessage = "No such folder"
+
+    const val notAFolderMessage = "Not a folder"
+
+    const val invalidNumOfArgsMessage = "Invalid number of arguments"
 }

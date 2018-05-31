@@ -82,14 +82,14 @@ class Environment {
  * This class stores path to a current working directory and allows to change it.
  */
 class WorkingDirectory(path: Path) {
-    private var path: Path = path.normalize()
+    private var path: Path = path.toAbsolutePath().normalize()
 
     fun getPath(): Path {
         return path
     }
 
     fun setPath(newPath: Path) {
-        path = newPath.normalize()
+        path = newPath.toAbsolutePath().normalize()
     }
 }
 
