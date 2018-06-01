@@ -1,8 +1,6 @@
-package operators
+package ru.spbau.shavkunov.operators
 
 import org.junit.Test
-import ru.spbau.shavkunov.Environment
-import ru.spbau.shavkunov.commands.AssignmentOperator
 import ru.spbau.shavkunov.commands.BuiltinOperator
 import ru.spbau.shavkunov.createStandardEnvironment
 import ru.spbau.shavkunov.interpreter.SimpleToken

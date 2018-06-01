@@ -1,4 +1,4 @@
-package utilities
+package ru.spbau.shavkunov.utilities
 
 import org.junit.Test
 import ru.spbau.shavkunov.WorkingDirectory

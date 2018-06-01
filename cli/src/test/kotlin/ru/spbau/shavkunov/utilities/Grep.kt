@@ -1,4 +1,4 @@
-package utilities
+package ru.spbau.shavkunov.utilities
 
 import org.apache.commons.io.FileUtils
 import org.junit.Test

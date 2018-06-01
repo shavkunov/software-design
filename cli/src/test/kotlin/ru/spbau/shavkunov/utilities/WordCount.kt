@@ -1,9 +1,8 @@
-package utilities
+package ru.spbau.shavkunov.utilities
 
 import org.apache.commons.io.FileUtils
 import org.junit.Test
 import ru.spbau.shavkunov.WorkingDirectory
-import ru.spbau.shavkunov.utilities.WordCount
 import java.nio.charset.Charset
 import java.nio.file.Paths
 import kotlin.test.assertEquals

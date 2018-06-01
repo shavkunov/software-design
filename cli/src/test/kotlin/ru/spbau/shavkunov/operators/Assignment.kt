@@ -1,4 +1,4 @@
-package operators
+package ru.spbau.shavkunov.operators
 
 import org.junit.Test
 import ru.spbau.shavkunov.Environment
