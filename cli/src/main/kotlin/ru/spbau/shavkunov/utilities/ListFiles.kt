@@ -18,11 +18,15 @@ object ListFiles : Utility {
 
             1 -> workingDirectory.getPath().resolve(Paths.get(args[0]))
 
-            else -> return ExecutionResult("Invalid number of arguments", false)
+            else -> return ExecutionResult(invalidNumOfArgsMessage, false)
         }.toFile()
 
         if (!directory.exists()) {
-            return ExecutionResult("No such file or directory", false)
+            return ExecutionResult(noSuchElementMessage, false)
+        }
+
+        if (directory.isFile) {
+            return ExecutionResult(directory.name + System.lineSeparator(), false)
         }
 
         return ExecutionResult(
@@ -30,4 +34,8 @@ object ListFiles : Utility {
             false
         )
     }
+
+    const val invalidNumOfArgsMessage = "Invalid number of arguments"
+
+    const val noSuchElementMessage = "No such file or directory"
 }
