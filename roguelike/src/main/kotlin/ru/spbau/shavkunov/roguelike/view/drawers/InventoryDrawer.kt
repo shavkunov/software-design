@@ -55,9 +55,10 @@ class InventoryDrawer(val controller: InventoryController) : Drawer {
         for ((index, item) in inventory.unusedItems.withIndex()) {
             val itemAttributes = item.attributes
             val itemTitle = item.getTitle()
+            val isHighlight = index == currentUnused
 
             lastOffset += index * attributesOffset
-            val layer = getLayerWithAttributes(itemTitle, worldState.gameMap, itemAttributes, lastOffset)
+            val layer = getLayerWithAttributes(itemTitle, worldState.gameMap, itemAttributes, lastOffset, isHighlight)
             terminal.pushLayer(layer)
         }
 
