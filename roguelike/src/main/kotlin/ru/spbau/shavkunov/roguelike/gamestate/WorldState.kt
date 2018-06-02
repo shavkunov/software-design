@@ -1,8 +1,8 @@
 package ru.spbau.shavkunov.roguelike.gamestate
 
-import ru.spbau.shavkunov.roguelike.characters.ActiveCharacter
 import ru.spbau.shavkunov.roguelike.attributes.Attributes
 import ru.spbau.shavkunov.roguelike.attributes.Inventory
+import ru.spbau.shavkunov.roguelike.characters.ActiveCharacter
 import ru.spbau.shavkunov.roguelike.gamestate.interaction.InteractionStrategy
 import ru.spbau.shavkunov.roguelike.gamestate.interaction.MonsterStrategy
 import ru.spbau.shavkunov.roguelike.gamestate.interaction.PlayerStrategy
@@ -43,7 +43,7 @@ class WorldState {
         }
     }
 
-    fun generateItems(tileType: TileType, randomRange: IntRange): MutableList<MapEntity> {
+    private fun generateItems(tileType: TileType, randomRange: IntRange): MutableList<MapEntity> {
         val itemsAmount = random.nextInt(randomRange)
         val tiles = mutableListOf<MapEntity>()
 
@@ -70,11 +70,19 @@ class WorldState {
         return player.underlyingObject.inventory
     }
 
+    fun getPlayer(): ActiveCharacter {
+        return player.underlyingObject
+    }
+
+    fun getPlayerPosition(): Position {
+        return player.pos
+    }
+
     fun monstersLeft(): Int {
         return monsters.size
     }
 
-    private fun update(newPositionTile: TileType, strategy: InteractionStrategy) {
+    fun update(newPositionTile: TileType, strategy: InteractionStrategy) {
         when(newPositionTile) {
             TileType.Floor -> strategy.proceedFloor()
             TileType.Player -> strategy.proceedPlayer(player)
