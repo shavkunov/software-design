@@ -1,9 +1,12 @@
-package ru.spbau.shavkunov.roguelike
+package ru.spbau.shavkunov.roguelike.characters
 
 import ru.spbau.shavkunov.roguelike.attributes.Attributes
+import ru.spbau.shavkunov.roguelike.gamestate.TileType
+import ru.spbau.shavkunov.roguelike.isDexterityHappened
+import ru.spbau.shavkunov.roguelike.isLuckHappend
 
 object CombatResolver {
-    fun resolveCombat(pair: Pair<Character, Character>): Pair<Character, Character> {
+    fun resolveCombat(pair: Pair<ActiveCharacter, ActiveCharacter>): Pair<ActiveCharacter, ActiveCharacter> {
         val first = pair.first
         val second = pair.second
 
@@ -13,13 +16,13 @@ object CombatResolver {
         val damagedFirstAttributes = Attributes(health = first.currentAttributes.health - secondDamage)
         val damagedSecondAttributes = Attributes(health = second.currentAttributes.health - firstDamage)
 
-        val damagedFirst = Character(first.currentAttributes + damagedFirstAttributes)
-        val damagedSecond = Character(second.currentAttributes + damagedSecondAttributes)
+        val damagedFirst = ActiveCharacter(TileType.Player, first.currentAttributes + damagedFirstAttributes)
+        val damagedSecond = ActiveCharacter(TileType.Monster, second.currentAttributes + damagedSecondAttributes)
 
         return Pair(damagedFirst, damagedSecond)
     }
 
-    private fun getFirstCharacterDamage(first: Character, second: Character): Int {
+    private fun getFirstCharacterDamage(first: ActiveCharacter, second: ActiveCharacter): Int {
         var attackBonus = 1
         if (isLuckHappend(first)) {
             attackBonus = 2

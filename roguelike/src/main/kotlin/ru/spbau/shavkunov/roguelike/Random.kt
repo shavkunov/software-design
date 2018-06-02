@@ -2,6 +2,7 @@ package ru.spbau.shavkunov.roguelike
 
 import ru.spbau.shavkunov.roguelike.attributes.maxDexterity
 import ru.spbau.shavkunov.roguelike.attributes.maxLuck
+import ru.spbau.shavkunov.roguelike.characters.ActiveCharacter
 import java.util.*
 
 val random = Random()
@@ -14,10 +15,10 @@ fun isAttributeHappened(attribute: Int, maxValue: Int): Boolean {
     return random.nextInt(maxValue) + 1 <= attribute
 }
 
-fun isLuckHappend(character: Character): Boolean {
+fun isLuckHappend(character: ActiveCharacter): Boolean {
     return isAttributeHappened(character.currentAttributes.luck, maxLuck)
 }
 
-fun isDexterityHappened(character: Character): Boolean {
+fun isDexterityHappened(character: ActiveCharacter): Boolean {
     return isAttributeHappened(character.currentAttributes.dexterity, maxDexterity)
 }

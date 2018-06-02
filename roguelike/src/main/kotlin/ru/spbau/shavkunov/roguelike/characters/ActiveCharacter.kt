@@ -1,10 +1,28 @@
-package ru.spbau.shavkunov.roguelike
+package ru.spbau.shavkunov.roguelike.characters
 
 import ru.spbau.shavkunov.roguelike.attributes.*
+import ru.spbau.shavkunov.roguelike.gamestate.TileType
 
-open class Character(private val basicAttributes: Attributes) {
-    private val inventory = Inventory()
-    var currentAttributes = basicAttributes
+class ActiveCharacter(
+        val tileType: TileType,
+        val updatedAttributes: Attributes? = null
+) {
+    private val basicAttributes: Attributes
+    var currentAttributes: Attributes
+    val inventory = Inventory()
+
+    init {
+        when (tileType) {
+            TileType.Player -> basicAttributes = getCharacterBasicAttributes()
+            else -> basicAttributes = getMonsterBasicAttributes()
+        }
+
+        if (updatedAttributes != null) {
+            currentAttributes = updatedAttributes
+        } else {
+            currentAttributes = basicAttributes
+        }
+    }
 
     fun pickItem(item: InventoryType) {
         inventory.addItem(item)
@@ -28,12 +46,4 @@ open class Character(private val basicAttributes: Attributes) {
     fun isDead(): Boolean {
         return currentAttributes.health == 0
     }
-}
-
-class Player() : Character(getCharacterBasicAttributes()) {
-
-}
-
-class Monster() : Character(getMonsterBasicAttributes()) {
-
 }
