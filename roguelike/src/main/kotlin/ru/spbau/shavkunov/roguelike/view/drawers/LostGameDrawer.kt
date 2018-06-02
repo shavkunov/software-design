@@ -3,17 +3,17 @@ package ru.spbau.shavkunov.roguelike.view.drawers
 import org.codetome.zircon.api.Position
 import org.codetome.zircon.api.Size
 import org.codetome.zircon.api.terminal.Terminal
-import ru.spbau.shavkunov.roguelike.controller.MapController
+import ru.spbau.shavkunov.roguelike.listener.MapListener
 
-class LostGameDrawer(val controller: MapController) : Drawer {
+class LostGameDrawer(val listener: MapListener) : Drawer {
     private val text = "You died!"
 
     override fun getTerminalSize(): Size {
-        return controller.mapSize
+        return listener.mapSize
     }
 
     override fun draw(terminal: Terminal) {
-        val worldState = controller.getCurrentState()
+        val worldState = listener.getCurrentState()
         val row = worldState.gameMap.rows / 2
         val column = (worldState.gameMap.columns - text.length) / 2
 

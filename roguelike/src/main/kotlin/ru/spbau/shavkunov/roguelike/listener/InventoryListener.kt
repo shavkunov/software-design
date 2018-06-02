@@ -1,11 +1,11 @@
-package ru.spbau.shavkunov.roguelike.controller
+package ru.spbau.shavkunov.roguelike.listener
 
 import org.codetome.zircon.api.input.Input
 import org.codetome.zircon.api.input.InputType
 import ru.spbau.shavkunov.roguelike.gamestate.WorldState
 import ru.spbau.shavkunov.roguelike.view.ScreenType
 
-class InventoryController(val worldState: WorldState) : Controller {
+class InventoryListener(val worldState: WorldState) : Listener {
     var currentUnused = 0
 
     override fun process(input: Input): ScreenType {
@@ -27,7 +27,9 @@ class InventoryController(val worldState: WorldState) : Controller {
                     currentUnused--
                 }
             }
-            InputType.Enter      -> {}
+            InputType.Enter      -> {
+                worldState.getPlayerInventory().equipItem(currentUnused)
+            }
             InputType.Escape     -> screenType = ScreenType.Map
             else                 -> {}
         }

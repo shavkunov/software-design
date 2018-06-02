@@ -6,14 +6,14 @@ import org.codetome.zircon.api.builder.LayerBuilder
 import org.codetome.zircon.api.graphics.Layer
 import org.codetome.zircon.api.terminal.Terminal
 import ru.spbau.shavkunov.roguelike.attributes.Attributes
-import ru.spbau.shavkunov.roguelike.controller.InventoryController
+import ru.spbau.shavkunov.roguelike.listener.InventoryListener
 
-class InventoryDrawer(val controller: InventoryController) : Drawer {
+class InventoryDrawer(val listener: InventoryListener) : Drawer {
     val equippedItemsText = "Your equipment:"
     val unusedItemsText = "Your Inventory:"
     val help = "use enter to equip item"
     val attributesOffset = Attributes.getStandardOffset()
-    val worldState = controller.getCurrentState()
+    val worldState = listener.getCurrentState()
 
     override fun getTerminalSize(): Size {
         val inventory = worldState.getPlayerInventory()
@@ -51,7 +51,7 @@ class InventoryDrawer(val controller: InventoryController) : Drawer {
         for ((index, item) in inventory.unusedItems.withIndex()) {
             val itemAttributes = item.attributes
             val itemTitle = item.getTitle()
-            val isHighlight = index == controller.currentUnused
+            val isHighlight = index == listener.currentUnused
 
             lastOffset += index * attributesOffset
             val layer = getLayerWithAttributes(itemTitle, worldState.gameMap, itemAttributes, lastOffset, isHighlight)

@@ -1,4 +1,4 @@
-package ru.spbau.shavkunov.roguelike.controller
+package ru.spbau.shavkunov.roguelike.listener
 
 import org.codetome.zircon.api.Size
 import org.codetome.zircon.api.input.Input
@@ -12,7 +12,7 @@ import ru.spbau.shavkunov.roguelike.view.ScreenType
 
 val additionalRows = 10
 
-class MapController: Controller {
+class MapListener: Listener {
     val worldState = WorldState()
     val mapSize = Size.of(
             worldState.gameMap.columns,

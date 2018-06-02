@@ -4,18 +4,18 @@ import org.codetome.zircon.api.Position
 import org.codetome.zircon.api.Size
 import org.codetome.zircon.api.terminal.Terminal
 import ru.spbau.shavkunov.roguelike.attributes.Attributes
-import ru.spbau.shavkunov.roguelike.controller.MapController
+import ru.spbau.shavkunov.roguelike.listener.MapListener
 
-class MapDrawer(val controller: MapController): Drawer {
+class MapDrawer(val listener: MapListener): Drawer {
     val inventoryHelp = "Press I to open your inventory"
     val stateCommentary = "Your stats:"
 
     override fun getTerminalSize(): Size {
-        return controller.mapSize
+        return listener.mapSize
     }
 
     override fun draw(terminal: Terminal) {
-        val worldState = controller.getCurrentState()
+        val worldState = listener.getCurrentState()
 
         terminal.clear()
         terminal.setSize(getTerminalSize())
