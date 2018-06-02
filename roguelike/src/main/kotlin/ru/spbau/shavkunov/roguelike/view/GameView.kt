@@ -1,6 +1,5 @@
 package ru.spbau.shavkunov.roguelike.view
 
-import org.codetome.zircon.api.Size
 import org.codetome.zircon.api.builder.TerminalBuilder
 import org.codetome.zircon.api.resource.CP437TilesetResource
 import ru.spbau.shavkunov.roguelike.controller.InventoryController

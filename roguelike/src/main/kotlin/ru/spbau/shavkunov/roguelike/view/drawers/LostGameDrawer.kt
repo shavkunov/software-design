@@ -2,11 +2,8 @@ package ru.spbau.shavkunov.roguelike.view.drawers
 
 import org.codetome.zircon.api.Position
 import org.codetome.zircon.api.Size
-import org.codetome.zircon.api.builder.LayerBuilder
 import org.codetome.zircon.api.terminal.Terminal
-import ru.spbau.shavkunov.roguelike.controller.Controller
 import ru.spbau.shavkunov.roguelike.controller.MapController
-import ru.spbau.shavkunov.roguelike.gamestate.WorldState
 
 class LostGameDrawer(val controller: MapController) : Drawer {
     private val text = "You died!"
