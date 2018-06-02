@@ -15,11 +15,12 @@ class EndGameDrawer(val finalMessage: String, val listener: MapListener) : Drawe
         val row = worldState.gameMap.rows / 2
         val column = (worldState.gameMap.columns - finalMessage.length) / 2
 
-        terminal.clear()
         var currentCharPosition = column - finalMessage.length/2
         for (char in finalMessage) {
             terminal.setCharacterAt(Position.of(currentCharPosition, row), char)
             currentCharPosition += 1
         }
+
+        terminal.flush()
     }
 }

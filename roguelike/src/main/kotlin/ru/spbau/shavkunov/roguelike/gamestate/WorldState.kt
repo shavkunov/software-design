@@ -1,8 +1,8 @@
 package ru.spbau.shavkunov.roguelike.gamestate
 
+import ru.spbau.shavkunov.roguelike.characters.ActiveCharacter
 import ru.spbau.shavkunov.roguelike.attributes.Attributes
 import ru.spbau.shavkunov.roguelike.attributes.Inventory
-import ru.spbau.shavkunov.roguelike.characters.ActiveCharacter
 import ru.spbau.shavkunov.roguelike.gamestate.interaction.InteractionStrategy
 import ru.spbau.shavkunov.roguelike.gamestate.interaction.MonsterStrategy
 import ru.spbau.shavkunov.roguelike.gamestate.interaction.PlayerStrategy

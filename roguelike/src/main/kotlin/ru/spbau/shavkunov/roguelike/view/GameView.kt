@@ -33,11 +33,12 @@ class GameView {
         terminal.onInput(Consumer {
             val screenType = activeListener.process(it)
 
+            terminal.clear()
             when(screenType) {
                 ScreenType.Map       -> mapDrawer.draw(terminal)
                 ScreenType.Inventory -> inventoryDrawer.draw(terminal)
                 ScreenType.LostGame  -> EndGameDrawer(lostMessage, mapListener).draw(terminal)
-                ScreenType.WinGame  -> EndGameDrawer(winMessage, mapListener).draw(terminal)
+                ScreenType.WinGame   -> EndGameDrawer(winMessage, mapListener).draw(terminal)
             }
 
             if (screenType == ScreenType.Inventory) {

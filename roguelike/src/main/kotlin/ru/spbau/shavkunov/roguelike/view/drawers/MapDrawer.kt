@@ -17,7 +17,6 @@ class MapDrawer(val listener: MapListener): Drawer {
     override fun draw(terminal: Terminal) {
         val worldState = listener.getCurrentState()
 
-        terminal.clear()
         terminal.setSize(getTerminalSize())
 
         val gameMap = worldState.gameMap

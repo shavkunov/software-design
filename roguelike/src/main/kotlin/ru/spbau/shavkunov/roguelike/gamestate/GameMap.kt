@@ -1,8 +1,6 @@
 package ru.spbau.shavkunov.roguelike.gamestate
 
-import ru.spbau.shavkunov.roguelike.characters.ActiveCharacter
 import ru.spbau.shavkunov.roguelike.navigation.Position
-import ru.spbau.shavkunov.roguelike.nextInt
 import ru.spbau.shavkunov.roguelike.random
 import java.io.File
 import java.nio.file.Paths

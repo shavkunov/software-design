@@ -27,11 +27,11 @@ class InventoryDrawer(val listener: InventoryListener) : Drawer {
         val inventory = worldState.getPlayerInventory()
         val currentSize = getTerminalSize()
 
-        terminal.clear()
         terminal.setSize(currentSize)
 
         val equipLayer = getPanelLayer(currentSize, 0)
         equipLayer.putText(equippedItemsText)
+        terminal.flush()
 
         var lastOffset = 0
         for ((index, item) in inventory.equippedItems.keys.withIndex()) {
@@ -43,6 +43,7 @@ class InventoryDrawer(val listener: InventoryListener) : Drawer {
             val layer = getLayerWithAttributes(itemTitle, worldState.gameMap, itemAttributes, lastOffset)
 
             terminal.pushLayer(layer)
+            terminal.flush()
         }
 
         val inventoryLayer = getPanelLayer(currentSize, lastOffset)
@@ -56,6 +57,7 @@ class InventoryDrawer(val listener: InventoryListener) : Drawer {
             lastOffset += index * attributesOffset
             val layer = getLayerWithAttributes(itemTitle, worldState.gameMap, itemAttributes, lastOffset, isHighlight)
             terminal.pushLayer(layer)
+            terminal.flush()
         }
 
         val helpLayer = getPanelLayer(currentSize, lastOffset)

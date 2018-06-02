@@ -3,10 +3,7 @@ package ru.spbau.shavkunov.roguelike.gamestate.interaction
 import ru.spbau.shavkunov.roguelike.attributes.generateItem
 import ru.spbau.shavkunov.roguelike.characters.ActiveCharacter
 import ru.spbau.shavkunov.roguelike.characters.CombatResolver
-import ru.spbau.shavkunov.roguelike.gamestate.GameMap
-import ru.spbau.shavkunov.roguelike.gamestate.MapEntity
 import ru.spbau.shavkunov.roguelike.gamestate.ObjectWithPosition
-import ru.spbau.shavkunov.roguelike.gamestate.TileType
 import ru.spbau.shavkunov.roguelike.navigation.Position
 
 class PlayerStrategy(private val player: ObjectWithPosition<ActiveCharacter>,

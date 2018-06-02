@@ -6,15 +6,18 @@ import ru.spbau.shavkunov.roguelike.isDexterityHappened
 import ru.spbau.shavkunov.roguelike.isLuckHappend
 
 object CombatResolver {
-    fun resolveCombat(pair: Pair<ActiveCharacter, ActiveCharacter>): Pair<ActiveCharacter, ActiveCharacter> {
+    fun resolveCombat(
+            pair: Pair<ActiveCharacter, ActiveCharacter>,
+            ignoreBonuses: Boolean = false
+    ): Pair<ActiveCharacter, ActiveCharacter> {
         val first = pair.first
         val second = pair.second
 
-        val firstDamage = getFirstCharacterDamage(first, second)
-        val secondDamage = getFirstCharacterDamage(second, first)
+        val firstDamage = getFirstCharacterDamage(first, second, ignoreBonuses)
+        val secondDamage = getFirstCharacterDamage(second, first, ignoreBonuses)
 
-        val damagedFirstAttributes = Attributes(health = first.currentAttributes.health - secondDamage)
-        val damagedSecondAttributes = Attributes(health = second.currentAttributes.health - firstDamage)
+        val damagedFirstAttributes = Attributes(health = secondDamage)
+        val damagedSecondAttributes = Attributes(health = firstDamage)
 
         val damagedFirst = ActiveCharacter(TileType.Player, first.currentAttributes - damagedFirstAttributes)
         val damagedSecond = ActiveCharacter(TileType.Monster, second.currentAttributes - damagedSecondAttributes)
@@ -22,21 +25,25 @@ object CombatResolver {
         return Pair(damagedFirst, damagedSecond)
     }
 
-    private fun getFirstCharacterDamage(first: ActiveCharacter, second: ActiveCharacter): Int {
+    private fun getFirstCharacterDamage(first: ActiveCharacter, second: ActiveCharacter, ignoreBonuses: Boolean): Int {
         var attackBonus = 1
-        if (isLuckHappend(first)) {
+        if (isLuckHappend(first) && !ignoreBonuses) {
             attackBonus = 2
         }
 
         val pureDamage = first.currentAttributes.attack * attackBonus
         var finalDamage = pureDamage
-        if (isDexterityHappened(second)) {
+        if (isDexterityHappened(second) && !ignoreBonuses) {
             finalDamage = 0
         }
 
         var absorbedDamage = finalDamage - second.currentAttributes.absorbingDamage(finalDamage)
         if (absorbedDamage < 0) {
             absorbedDamage = 0
+        }
+
+        if (ignoreBonuses) {
+            return finalDamage
         }
 
         return absorbedDamage

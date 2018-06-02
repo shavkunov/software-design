@@ -18,9 +18,9 @@ class Inventory {
 
         if (equippedItems.containsKey(title)) {
             unusedItems.add(equippedItems[title]!!)
-        } else {
-            equippedItems[item.getTitle()] = item
         }
+
+        equippedItems[item.getTitle()] = item
     }
 
     fun getBonusAttributes(): Attributes {
@@ -33,64 +33,91 @@ class Inventory {
     }
 }
 
-abstract class InventoryType {
-    open val attributes = Attributes()
+abstract class InventoryType(preparedAttributes: Attributes?) {
+    val attributes: Attributes
+
+    init {
+        if (preparedAttributes != null) {
+            attributes = preparedAttributes
+        } else {
+            attributes = initAttributes()
+        }
+    }
 
     abstract fun getTitle(): String
+    abstract fun initAttributes(): Attributes
 }
 
-class Helmet : InventoryType() {
-    private val armorRange = 5..10
-    private val dexterityRange = 0..5
-    override val attributes = Attributes(armor = random.nextInt(armorRange), dexterity = random.nextInt(dexterityRange))
+class Helmet(preparedAttributes: Attributes? = null) : InventoryType(preparedAttributes) {
+    override fun initAttributes(): Attributes {
+        val armorRange = 5..10
+        val dexterityRange = 0..5
+
+        return Attributes(armor = random.nextInt(armorRange), dexterity = random.nextInt(dexterityRange))
+    }
 
     override fun getTitle(): String {
         return "helmet"
     }
 }
 
-class Gloves : InventoryType() {
-    private val armorRange = 1..5
-    private val dexterityRange = 0..10
-    override val attributes = Attributes(armor = random.nextInt(armorRange), dexterity = random.nextInt(dexterityRange))
+class Gloves(preparedAttributes: Attributes? = null) : InventoryType(preparedAttributes) {
+    override fun initAttributes(): Attributes {
+        val armorRange = 1..5
+        val dexterityRange = 0..10
+
+        return Attributes(armor = random.nextInt(armorRange), dexterity = random.nextInt(dexterityRange))
+    }
 
     override fun getTitle(): String {
         return "gloves"
     }
 }
 
-class Boots : InventoryType() {
-    private val armorRange = 5..10
-    private val dexterityRange = 10..15
-    override val attributes = Attributes(armor = random.nextInt(armorRange), dexterity = random.nextInt(dexterityRange))
+class Boots(preparedAttributes: Attributes? = null) : InventoryType(preparedAttributes) {
+    override fun initAttributes(): Attributes {
+        val armorRange = 5..10
+        val dexterityRange = 10..15
+
+        return Attributes(armor = random.nextInt(armorRange), dexterity = random.nextInt(dexterityRange))
+    }
 
     override fun getTitle(): String {
         return "boots"
     }
 }
 
-class Armor : InventoryType() {
-    private val armorRange = 15..20
-    private val dexterityRange = -2..5
-    override val attributes = Attributes(armor = random.nextInt(armorRange), dexterity = random.nextInt(dexterityRange))
+class Armor(preparedAttributes: Attributes? = null) : InventoryType(preparedAttributes) {
+    override fun initAttributes(): Attributes {
+        val armorRange = 15..20
+        val dexterityRange = -2..5
+
+        return Attributes(armor = random.nextInt(armorRange), dexterity = random.nextInt(dexterityRange))
+    }
 
     override fun getTitle(): String {
         return "armor"
     }
 }
 
-class Amulet : InventoryType() {
-    private val luckRange = 5..10
-    override val attributes = Attributes(luck = random.nextInt(luckRange))
+class Amulet(preparedAttributes: Attributes? = null) : InventoryType(preparedAttributes) {
+    override fun initAttributes(): Attributes {
+        val luckRange = 5..10
+
+        return Attributes(luck = random.nextInt(luckRange))
+    }
 
     override fun getTitle(): String {
         return "amulet"
     }
 }
 
-class Weapon : InventoryType() {
-    private val attack = 3..5
-    override val attributes = Attributes(attack = random.nextInt(attack))
+class Weapon(preparedAttributes: Attributes? = null) : InventoryType(preparedAttributes) {
+    override fun initAttributes(): Attributes {
+        val attack = 3..5
+
+        return Attributes(attack = random.nextInt(attack))
+    }
 
     override fun getTitle(): String {
         return "weapon"
