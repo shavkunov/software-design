@@ -8,6 +8,7 @@ import ru.spbau.shavkunov.roguelike.controller.MapController
 
 class MapDrawer(val controller: MapController): Drawer {
     val inventoryHelp = "Press I to open your inventory"
+    val stateCommentary = "Your stats:"
 
     override fun getTerminalSize(): Size {
         return controller.mapSize
@@ -31,7 +32,7 @@ class MapDrawer(val controller: MapController): Drawer {
         }
 
         val attributes = worldState.getPlayerAttributes()
-        val layer = getLayerWithAttributes(gameMap, attributes)
+        val layer = getLayerWithAttributes(stateCommentary, gameMap, attributes)
 
         terminal.pushLayer(layer)
 

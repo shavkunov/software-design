@@ -24,11 +24,12 @@ fun getLayer(gameMap: GameMap, offset: Int = 0): Layer {
             .build()
 }
 
-fun getLayerWithAttributes(gameMap: GameMap, attributes: Attributes, offset: Int = 0): Layer {
+fun getLayerWithAttributes(title: String, gameMap: GameMap, attributes: Attributes, offset: Int = 0): Layer {
     val layer = getLayer(gameMap, offset)
     val text = attributes.getStringAttributes()
+    layer.putText(title, Position.of(0, 0))
     for ((index, inventoryString) in text.withIndex()) {
-        layer.putText(inventoryString, Position.of(0, index))
+        layer.putText(inventoryString, Position.of(0, index + 1))
     }
 
     return layer

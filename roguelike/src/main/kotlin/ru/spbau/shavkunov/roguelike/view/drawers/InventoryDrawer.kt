@@ -17,6 +17,7 @@ class InventoryDrawer(val controller: InventoryController) : Drawer {
     val help = "use enter to equip item"
     val attributesOffset = Attributes.getStandardOffset()
     val worldState = controller.getCurrentState()
+    val currentUnused = 0
 
     override fun getTerminalSize(): Size {
         val inventory = worldState.getPlayerInventory()
@@ -38,9 +39,12 @@ class InventoryDrawer(val controller: InventoryController) : Drawer {
 
         var lastOffset = 0
         for ((index, item) in inventory.equippedItems.keys.withIndex()) {
-            val itemAttributes = inventory.equippedItems[item]!!.attributes
+            val inventoryItem = inventory.equippedItems[item]!!
+            val itemAttributes = inventoryItem.attributes
+            val itemTitle = inventoryItem.getTitle()
+
             lastOffset = index * attributesOffset
-            val layer = getLayerWithAttributes(worldState.gameMap, itemAttributes, lastOffset)
+            val layer = getLayerWithAttributes(itemTitle, worldState.gameMap, itemAttributes, lastOffset)
 
             terminal.pushLayer(layer)
         }
@@ -50,9 +54,10 @@ class InventoryDrawer(val controller: InventoryController) : Drawer {
 
         for ((index, item) in inventory.unusedItems.withIndex()) {
             val itemAttributes = item.attributes
+            val itemTitle = item.getTitle()
 
             lastOffset += index * attributesOffset
-            val layer = getLayerWithAttributes(worldState.gameMap, itemAttributes, lastOffset)
+            val layer = getLayerWithAttributes(itemTitle, worldState.gameMap, itemAttributes, lastOffset)
             terminal.pushLayer(layer)
         }
 

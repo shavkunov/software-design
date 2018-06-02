@@ -29,7 +29,6 @@ class GameView {
     init {
         terminal.onInput(Consumer {
             val screenType = mapController.process(it)
-            val worldState = mapController.worldState
 
             when(screenType) {
                 ScreenType.Map       -> mapDrawer.draw(terminal)
