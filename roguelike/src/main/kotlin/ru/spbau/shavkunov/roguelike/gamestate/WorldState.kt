@@ -70,6 +70,10 @@ class WorldState {
         return player.underlyingObject.inventory
     }
 
+    fun monstersLeft(): Int {
+        return monsters.size
+    }
+
     private fun update(newPositionTile: TileType, strategy: InteractionStrategy) {
         when(newPositionTile) {
             TileType.Floor -> strategy.proceedFloor()

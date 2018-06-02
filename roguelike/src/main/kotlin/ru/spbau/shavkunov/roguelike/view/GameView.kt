@@ -5,18 +5,20 @@ import org.codetome.zircon.api.resource.CP437TilesetResource
 import ru.spbau.shavkunov.roguelike.listener.InventoryListener
 import ru.spbau.shavkunov.roguelike.listener.Listener
 import ru.spbau.shavkunov.roguelike.listener.MapListener
+import ru.spbau.shavkunov.roguelike.view.drawers.EndGameDrawer
 import ru.spbau.shavkunov.roguelike.view.drawers.InventoryDrawer
-import ru.spbau.shavkunov.roguelike.view.drawers.LostGameDrawer
 import ru.spbau.shavkunov.roguelike.view.drawers.MapDrawer
 import java.util.function.Consumer
 
 class GameView {
+    private val lostMessage = "You died!"
+    private val winMessage = "You won!"
+
     private val mapListener = MapListener()
     private val inventoryListener = InventoryListener(mapListener.worldState)
 
     private val mapDrawer = MapDrawer(mapListener)
     private val inventoryDrawer = InventoryDrawer(inventoryListener)
-    private val lostGameDrawer = LostGameDrawer(mapListener)
     private var activeListener: Listener = mapListener
 
     private val gameTitle = "Roguelike"
@@ -33,8 +35,9 @@ class GameView {
 
             when(screenType) {
                 ScreenType.Map       -> mapDrawer.draw(terminal)
-                ScreenType.LostGame  -> lostGameDrawer.draw(terminal)
                 ScreenType.Inventory -> inventoryDrawer.draw(terminal)
+                ScreenType.LostGame  -> EndGameDrawer(lostMessage, mapListener).draw(terminal)
+                ScreenType.WinGame  -> EndGameDrawer(winMessage, mapListener).draw(terminal)
             }
 
             if (screenType == ScreenType.Inventory) {

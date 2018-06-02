@@ -50,6 +50,10 @@ class MapListener: Listener {
             else -> {}
         }
 
+        if (worldState.monstersLeft() == 0) {
+            screenType = ScreenType.WinGame
+        }
+
         if (worldState.isPlayerDead()) {
             screenType = ScreenType.LostGame
         }
