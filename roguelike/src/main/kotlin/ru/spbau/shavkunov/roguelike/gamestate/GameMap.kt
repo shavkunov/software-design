@@ -35,7 +35,7 @@ class GameMap(mapInput: File = defaultMapFile) {
     fun clearElements() {
         for ((rowIndex, row) in gameMap.withIndex()) {
             for ((columnIndex, column ) in row.withIndex()) {
-                if (column != TileType.Floor && column != TileType.Wall) {
+                if (column == TileType.Player || column == TileType.Monster) {
                     setTile(MapEntity(TileType.Floor, Position(rowIndex, columnIndex)))
                 }
             }
@@ -54,13 +54,6 @@ class GameMap(mapInput: File = defaultMapFile) {
 
         val index = random.nextInt(freeTiles.size)
         return freeTiles[index]
-    }
-
-    fun moveCharacter(character: ObjectWithPosition<out ActiveCharacter>, to: Position) {
-        val type = character.underlyingObject.tileType
-
-        setTile(MapEntity(TileType.Floor, character.pos))
-        setTile(MapEntity(type, to))
     }
 
     fun getTile(pos: Position): TileType {

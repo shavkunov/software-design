@@ -4,7 +4,7 @@ import ru.spbau.shavkunov.roguelike.nextInt
 import ru.spbau.shavkunov.roguelike.random
 
 class Inventory {
-    private val unusedItems: MutableList<InventoryType> = mutableListOf()
+    val unusedItems: MutableList<InventoryType> = mutableListOf()
     val equippedItems: MutableMap<String, InventoryType> = HashMap()
 
     fun addItem(item: InventoryType) {

@@ -1,5 +1,6 @@
 package ru.spbau.shavkunov.roguelike.controller
 
+import org.codetome.zircon.api.Size
 import org.codetome.zircon.api.input.Input
 import org.codetome.zircon.api.input.InputType
 import ru.spbau.shavkunov.roguelike.gamestate.WorldState
@@ -9,10 +10,15 @@ import ru.spbau.shavkunov.roguelike.navigation.Right
 import ru.spbau.shavkunov.roguelike.navigation.Up
 import ru.spbau.shavkunov.roguelike.view.ScreenType
 
-class GameController {
-    val worldState = WorldState()
+val additionalRows = 10
 
-    fun process(input: Input): ScreenType {
+class MapController: Controller {
+    val worldState = WorldState()
+    val mapSize = Size.of(
+            worldState.gameMap.columns,
+            worldState.gameMap.rows + additionalRows)
+
+    override fun process(input: Input): ScreenType {
         var screenType = ScreenType.Map
 
         if (!input.isKeyStroke()) {
@@ -32,11 +38,6 @@ class GameController {
                 'I', 'i' -> {
                     screenType = ScreenType.Inventory
                 }
-                'Q', 'q' -> {
-                    if (screenType == ScreenType.Map) {
-                        screenType = ScreenType.Quit
-                    }
-                }
                 else -> {}
             }
 
@@ -54,5 +55,9 @@ class GameController {
         }
 
         return screenType
+    }
+
+    override fun getCurrentState(): WorldState {
+        return worldState
     }
 }

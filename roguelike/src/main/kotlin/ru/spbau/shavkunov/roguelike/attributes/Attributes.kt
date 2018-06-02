@@ -40,6 +40,17 @@ data class Attributes(
         return listOf(attackString, healthString, armorString, luckString, dexterityString)
     }
 
+    companion object {
+        val fakeAttributes = Attributes()
+        fun getAttributesAmount(): Int {
+            return fakeAttributes.getStringAttributes().size
+        }
+
+        fun getStandardOffset(): Int {
+            return getAttributesAmount() + 2
+        }
+    }
+
     fun absorbingDamage(damage: Int): Int {
         return damage * armor / 100
     }
