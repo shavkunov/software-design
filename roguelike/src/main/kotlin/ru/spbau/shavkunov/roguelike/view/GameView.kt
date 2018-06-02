@@ -12,7 +12,11 @@ import java.util.function.Consumer
 
 class GameView {
     private val mapController = MapController()
-    private val inventoryController = InventoryController()
+    private val inventoryController = InventoryController(mapController.worldState)
+
+    private val mapDrawer = MapDrawer(mapController)
+    private val inventoryDrawer = InventoryDrawer(inventoryController)
+    private val lostGameDrawer = LostGameDrawer(mapController)
 
     private val gameTitle = "Roguelike"
     private val terminal = TerminalBuilder
@@ -23,21 +27,15 @@ class GameView {
             .build()
 
     init {
-        terminalMapSize.size = mapController.mapSize
-
         terminal.onInput(Consumer {
             val screenType = mapController.process(it)
             val worldState = mapController.worldState
 
             when(screenType) {
-                ScreenType.Map       -> MapDrawer.draw(terminal, mapController)
-                ScreenType.Inventory -> InventoryDrawer.draw(terminal, inventoryController)
-                ScreenType.LostGame  -> LostGameDrawer.draw(terminal, mapController)
+                ScreenType.Map       -> mapDrawer.draw(terminal)
+                ScreenType.Inventory -> inventoryDrawer.draw(terminal)
+                ScreenType.LostGame  -> lostGameDrawer.draw(terminal)
             }
         })
     }
-}
-
-object terminalMapSize {
-    var size: Size? = null
 }

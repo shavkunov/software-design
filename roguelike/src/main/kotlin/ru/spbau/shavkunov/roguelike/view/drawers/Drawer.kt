@@ -12,7 +12,8 @@ import ru.spbau.shavkunov.roguelike.gamestate.GameMap
 import ru.spbau.shavkunov.roguelike.gamestate.WorldState
 
 interface Drawer {
-    fun draw(terminal: Terminal, controller: Controller)
+    fun draw(terminal: Terminal)
+    fun getTerminalSize(): Size
 }
 
 fun getLayer(gameMap: GameMap, offset: Int = 0): Layer {

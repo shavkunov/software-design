@@ -2,23 +2,22 @@ package ru.spbau.shavkunov.roguelike.view.drawers
 
 import org.codetome.zircon.api.Position
 import org.codetome.zircon.api.Size
-import org.codetome.zircon.api.builder.LayerBuilder
-import org.codetome.zircon.api.graphics.Layer
 import org.codetome.zircon.api.terminal.Terminal
 import ru.spbau.shavkunov.roguelike.attributes.Attributes
-import ru.spbau.shavkunov.roguelike.controller.Controller
-import ru.spbau.shavkunov.roguelike.gamestate.GameMap
-import ru.spbau.shavkunov.roguelike.gamestate.WorldState
-import ru.spbau.shavkunov.roguelike.view.terminalMapSize
+import ru.spbau.shavkunov.roguelike.controller.MapController
 
-object MapDrawer: Drawer {
+class MapDrawer(val controller: MapController): Drawer {
     val inventoryHelp = "Press I to open your inventory"
 
-    override fun draw(terminal: Terminal, controller: Controller) {
+    override fun getTerminalSize(): Size {
+        return controller.mapSize
+    }
+
+    override fun draw(terminal: Terminal) {
         val worldState = controller.getCurrentState()
 
         terminal.clear()
-        terminal.setSize(terminalMapSize.size!!)
+        terminal.setSize(getTerminalSize())
 
         val gameMap = worldState.gameMap
         for (row in 0 until gameMap.rows) {

@@ -7,21 +7,28 @@ import org.codetome.zircon.api.graphics.Layer
 import org.codetome.zircon.api.terminal.Terminal
 import ru.spbau.shavkunov.roguelike.attributes.Attributes
 import ru.spbau.shavkunov.roguelike.controller.Controller
+import ru.spbau.shavkunov.roguelike.controller.InventoryController
 import ru.spbau.shavkunov.roguelike.controller.additionalRows
 import ru.spbau.shavkunov.roguelike.gamestate.WorldState
 
-object InventoryDrawer : Drawer {
+class InventoryDrawer(val controller: InventoryController) : Drawer {
     val equippedItemsText = "Your equipment:"
     val unusedItemsText = "Your Inventory:"
     val help = "use enter to equip item"
+    val attributesOffset = Attributes.getStandardOffset()
+    val worldState = controller.getCurrentState()
 
-    override fun draw(terminal: Terminal, controller: Controller) {
-        val worldState = controller.getCurrentState()
-
+    override fun getTerminalSize(): Size {
         val inventory = worldState.getPlayerInventory()
-        val attributesOffset = Attributes.getStandardOffset()
         val inventorySize = inventory.equippedItems.size + inventory.unusedItems.size
         val currentSize = Size.of(worldState.gameMap.columns, attributesOffset * inventorySize + 2)
+
+        return currentSize
+    }
+
+    override fun draw(terminal: Terminal) {
+        val inventory = worldState.getPlayerInventory()
+        val currentSize = getTerminalSize()
 
         terminal.clear()
         terminal.setSize(currentSize)
