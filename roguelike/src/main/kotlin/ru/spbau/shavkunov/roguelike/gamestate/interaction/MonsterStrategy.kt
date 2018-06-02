@@ -11,8 +11,7 @@ class MonsterStrategy(
         val monster: ObjectWithPosition<ActiveCharacter>,
         val newPosition: Position
 ) : InteractionStrategy {
-    override fun proceedFloor(gameMap: GameMap) {
-        gameMap.moveCharacter(monster, newPosition)
+    override fun proceedFloor() {
         monsters.remove(monster.pos)
         monster.pos = newPosition
         monsters[newPosition] = monster.underlyingObject

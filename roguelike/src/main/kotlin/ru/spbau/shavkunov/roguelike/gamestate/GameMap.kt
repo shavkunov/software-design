@@ -15,7 +15,6 @@ class GameMap(mapInput: File = defaultMapFile) {
     private val gameMap: Array<Array<TileType>>
     val rows: Int = mapInput.readLines().size
     val columns: Int = mapInput.readLines()[0].length
-    val lootBoxesRange = 5..8
 
     init {
         gameMap = Array(rows, {Array(columns, { TileType.Floor })})
@@ -31,14 +30,16 @@ class GameMap(mapInput: File = defaultMapFile) {
                 gameMap[x][y] = entity
             }
         }
+    }
 
-        val lootboxesAmount = random.nextInt(lootBoxesRange)
-        repeat(lootboxesAmount, {
-            val tile = getRandomFreeTile()
-            val lootBoxEntity = MapEntity(TileType.Lootbox, tile.pos)
-
-            setTile(lootBoxEntity)
-        })
+    fun clearElements() {
+        for ((rowIndex, row) in gameMap.withIndex()) {
+            for ((columnIndex, column ) in row.withIndex()) {
+                if (column != TileType.Floor && column != TileType.Wall) {
+                    setTile(MapEntity(TileType.Floor, Position(rowIndex, columnIndex)))
+                }
+            }
+        }
     }
 
     fun getRandomFreeTile(): MapEntity {

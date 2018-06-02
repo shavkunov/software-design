@@ -7,17 +7,55 @@ import ru.spbau.shavkunov.roguelike.gamestate.interaction.InteractionStrategy
 import ru.spbau.shavkunov.roguelike.gamestate.interaction.MonsterStrategy
 import ru.spbau.shavkunov.roguelike.gamestate.interaction.PlayerStrategy
 import ru.spbau.shavkunov.roguelike.navigation.*
+import ru.spbau.shavkunov.roguelike.nextInt
 import ru.spbau.shavkunov.roguelike.random
 
 class WorldState {
-    val gameMap = GameMap()
     private var player: ObjectWithPosition<ActiveCharacter>
     private val monsters: MutableMap<Position, ActiveCharacter> = mutableMapOf()
+    private val lootBoxesRange = 5..8
+    private val monstersRange = 5..10
+    val gameMap = GameMap()
+        get() {
+            if (player != null) {
+
+                field.clearElements()
+                field.setTile(MapEntity(TileType.Player, player.pos))
+
+                for (monsterPosition: Position in monsters.keys) {
+                    field.setTile(MapEntity(TileType.Monster, monsterPosition))
+                }
+            }
+
+            return field
+        }
 
     init {
         val playerTile = gameMap.getRandomFreeTile()
         player = ObjectWithPosition(ActiveCharacter(TileType.Player), playerTile.pos)
         gameMap.setTile(MapEntity(TileType.Player, player.pos))
+
+        generateItems(TileType.Lootbox, lootBoxesRange)
+        val monsterTiles = generateItems(TileType.Monster, monstersRange)
+
+        for (tile in monsterTiles) {
+            monsters[tile.pos] = ActiveCharacter(TileType.Monster)
+        }
+    }
+
+    fun generateItems(tileType: TileType, randomRange: IntRange): MutableList<MapEntity> {
+        val itemsAmount = random.nextInt(randomRange)
+        val tiles = mutableListOf<MapEntity>()
+
+        repeat(itemsAmount, {
+            val tile = gameMap.getRandomFreeTile()
+            val entity = MapEntity(tileType, tile.pos)
+
+            gameMap.setTile(entity)
+            tiles.add(entity)
+        })
+
+        return tiles
     }
 
     fun isPlayerDead(): Boolean {
@@ -34,7 +72,7 @@ class WorldState {
 
     private fun update(newPositionTile: TileType, strategy: InteractionStrategy) {
         when(newPositionTile) {
-            TileType.Floor -> strategy.proceedFloor(gameMap)
+            TileType.Floor -> strategy.proceedFloor()
             TileType.Player -> strategy.proceedPlayer(player)
             TileType.Monster -> strategy.proceedMonster(monsters)
             TileType.Lootbox -> strategy.proceedLootboox()
@@ -49,14 +87,14 @@ class WorldState {
         val playerStrategy = PlayerStrategy(player, newPosition)
 
         update(newPositionTile, playerStrategy)
-
         moveMonsters()
     }
 
     private fun moveMonsters() {
         val directions = listOf(Up, Down, Left, Right)
+        val monstersKeySet = monsters.keys.toSet()
 
-        for (monsterPosition: Position in monsters.keys) {
+        for (monsterPosition: Position in monstersKeySet) {
             val monster = ObjectWithPosition(monsters[monsterPosition]!!, monsterPosition)
             val monsterMove = directions.get(random.nextInt(directions.size))
             val newPosition = monsterMove.makeMove(monsterPosition)

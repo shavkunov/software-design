@@ -18,12 +18,12 @@ object Left : Move {
 
 object Up : Move {
     override fun makeMove(from: Position): Position {
-        return Position(from.x + 1, from.y)
+        return Position(from.x - 1, from.y)
     }
 }
 
 object Down : Move {
     override fun makeMove(from: Position): Position {
-        return Position(from.x - 1, from.y)
+        return Position(from.x + 1, from.y)
     }
 }

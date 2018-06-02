@@ -5,7 +5,7 @@ import ru.spbau.shavkunov.roguelike.gamestate.TileType
 
 class ActiveCharacter(
         val tileType: TileType,
-        val updatedAttributes: Attributes? = null
+        updatedAttributes: Attributes? = null
 ) {
     private val basicAttributes: Attributes
     var currentAttributes: Attributes

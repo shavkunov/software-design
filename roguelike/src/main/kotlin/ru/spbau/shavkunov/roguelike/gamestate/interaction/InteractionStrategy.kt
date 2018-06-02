@@ -7,7 +7,7 @@ import ru.spbau.shavkunov.roguelike.gamestate.ObjectWithPosition
 import ru.spbau.shavkunov.roguelike.navigation.Position
 
 interface InteractionStrategy {
-    fun proceedFloor(gameMap: GameMap)
+    fun proceedFloor()
     fun proceedMonster(monsters: MutableMap<Position, ActiveCharacter>)
     fun proceedPlayer(player: ObjectWithPosition<ActiveCharacter>)
     fun proceedLootboox()

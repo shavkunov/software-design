@@ -16,8 +16,8 @@ object CombatResolver {
         val damagedFirstAttributes = Attributes(health = first.currentAttributes.health - secondDamage)
         val damagedSecondAttributes = Attributes(health = second.currentAttributes.health - firstDamage)
 
-        val damagedFirst = ActiveCharacter(TileType.Player, first.currentAttributes + damagedFirstAttributes)
-        val damagedSecond = ActiveCharacter(TileType.Monster, second.currentAttributes + damagedSecondAttributes)
+        val damagedFirst = ActiveCharacter(TileType.Player, first.currentAttributes - damagedFirstAttributes)
+        val damagedSecond = ActiveCharacter(TileType.Monster, second.currentAttributes - damagedSecondAttributes)
 
         return Pair(damagedFirst, damagedSecond)
     }
