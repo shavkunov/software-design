@@ -14,6 +14,9 @@ import ru.spbau.shavkunov.roguelike.view.ScreenType
 
 private val LOGGER = LoggerFactory.getLogger("MapListener")
 
+/**
+ * Listens to input during on Map Screen
+ */
 class MapListener: Listener {
     val worldState = WorldState()
     val mapSize = worldState.getMapSize()

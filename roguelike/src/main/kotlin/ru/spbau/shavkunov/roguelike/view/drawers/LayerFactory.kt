@@ -10,6 +10,9 @@ import ru.spbau.shavkunov.roguelike.attributes.Attributes
 import ru.spbau.shavkunov.roguelike.gamestate.GameMap
 import ru.spbau.shavkunov.roguelike.gamestate.additionalRows
 
+/**
+ * Creating layers with less parameters: only with size and offset
+ */
 object LayerFactory {
     fun getLayer(gameMap: GameMap, offset: Int = 0): Layer {
         val size = Size.of(gameMap.columns, additionalRows)

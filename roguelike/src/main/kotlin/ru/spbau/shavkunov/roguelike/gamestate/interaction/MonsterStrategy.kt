@@ -5,6 +5,9 @@ import ru.spbau.shavkunov.roguelike.characters.CombatResolver
 import ru.spbau.shavkunov.roguelike.gamestate.ObjectWithPosition
 import ru.spbau.shavkunov.roguelike.navigation.Position
 
+/**
+ * Interacting strategy for the monster
+ */
 class MonsterStrategy(
         val monsters: MutableMap<Position, ActiveCharacter>,
         val monster: ObjectWithPosition<ActiveCharacter>,

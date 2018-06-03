@@ -3,6 +3,14 @@ package ru.spbau.shavkunov.roguelike.attributes
 import ru.spbau.shavkunov.roguelike.nextInt
 import ru.spbau.shavkunov.roguelike.random
 
+/**
+ * Attributes of a character
+ * attack influnces on dealing damage
+ * armor absorbes incoming damage
+ * health is points of being alive: when its 0 or less, then character is dead
+ * luck is a probability points of doubling the damage
+ * dexterity is a probability points of avoiding damage from enemy
+ */
 data class Attributes(
         val attack: Int = 0,
         val health: Int = 0,

@@ -9,6 +9,9 @@ import ru.spbau.shavkunov.roguelike.navigation.Position
 
 private val LOGGER = LoggerFactory.getLogger("PlayerStrategy")
 
+/**
+ * Interacting strategy for the player
+ */
 class PlayerStrategy(private val player: ObjectWithPosition<ActiveCharacter>,
                      private val newPosition: Position
 ) : InteractionStrategy {

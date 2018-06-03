@@ -8,6 +8,9 @@ import ru.spbau.shavkunov.roguelike.view.ScreenType
 
 private val LOGGER = LoggerFactory.getLogger("InventoryListener")
 
+/**
+ * Listens to input during on Inventory Screen
+ */
 class InventoryListener(val worldState: WorldState) : Listener {
     var currentUnused = 0
 

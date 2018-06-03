@@ -12,6 +12,9 @@ import ru.spbau.shavkunov.roguelike.view.drawers.InventoryDrawer
 import ru.spbau.shavkunov.roguelike.view.drawers.MapDrawer
 import java.util.function.Consumer
 
+/**
+ * Main class responsible for handling listeners responses and sending draw commands to drawers
+ */
 class GameView {
     private val lostMessage = "You died!"
     private val winMessage = "You won!"

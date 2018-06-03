@@ -5,6 +5,10 @@ import ru.spbau.shavkunov.roguelike.attributes.maxLuck
 import ru.spbau.shavkunov.roguelike.characters.ActiveCharacter
 import java.util.*
 
+/**
+ * Utils, which is helping to generate random values.
+ */
+
 val random = Random()
 
 fun Random.nextInt(range: IntRange): Int {

@@ -3,11 +3,14 @@ package ru.spbau.shavkunov.roguelike.attributes
 import ru.spbau.shavkunov.roguelike.nextInt
 import ru.spbau.shavkunov.roguelike.random
 
+/**
+ * Inventory stores items of the character. It's keeping unused and equiped items.
+ */
 class Inventory {
-    val unusedItems: MutableList<InventoryType> = mutableListOf()
-    val equippedItems: MutableMap<String, InventoryType> = HashMap()
+    val unusedItems: MutableList<InventoryItem> = mutableListOf()
+    val equippedItems: MutableMap<String, InventoryItem> = HashMap()
 
-    fun addItem(item: InventoryType) {
+    fun addItem(item: InventoryItem) {
         unusedItems.add(item)
     }
 
@@ -25,7 +28,7 @@ class Inventory {
 
     fun getBonusAttributes(): Attributes {
         var attributes = Attributes()
-        for (item: InventoryType in equippedItems.values) {
+        for (item: InventoryItem in equippedItems.values) {
             attributes += item.attributes
         }
 
@@ -33,7 +36,10 @@ class Inventory {
     }
 }
 
-abstract class InventoryType(preparedAttributes: Attributes?) {
+/**
+ * Item is a member of inventory. No more than one item of same type(see below) can be equiped simultaneously.
+ */
+abstract class InventoryItem(preparedAttributes: Attributes?) {
     val attributes: Attributes
 
     init {
@@ -48,7 +54,10 @@ abstract class InventoryType(preparedAttributes: Attributes?) {
     abstract fun initAttributes(): Attributes
 }
 
-class Helmet(preparedAttributes: Attributes? = null) : InventoryType(preparedAttributes) {
+/**
+ * Helmet for the head
+ */
+class Helmet(preparedAttributes: Attributes? = null) : InventoryItem(preparedAttributes) {
     override fun initAttributes(): Attributes {
         val armorRange = 5..10
         val dexterityRange = 0..5
@@ -61,7 +70,10 @@ class Helmet(preparedAttributes: Attributes? = null) : InventoryType(preparedAtt
     }
 }
 
-class Gloves(preparedAttributes: Attributes? = null) : InventoryType(preparedAttributes) {
+/**
+ * Gloves for the hands
+ */
+class Gloves(preparedAttributes: Attributes? = null) : InventoryItem(preparedAttributes) {
     override fun initAttributes(): Attributes {
         val armorRange = 1..5
         val dexterityRange = 0..10
@@ -74,7 +86,10 @@ class Gloves(preparedAttributes: Attributes? = null) : InventoryType(preparedAtt
     }
 }
 
-class Boots(preparedAttributes: Attributes? = null) : InventoryType(preparedAttributes) {
+/**
+ * Boots for the foot
+ */
+class Boots(preparedAttributes: Attributes? = null) : InventoryItem(preparedAttributes) {
     override fun initAttributes(): Attributes {
         val armorRange = 5..10
         val dexterityRange = 10..15
@@ -87,7 +102,10 @@ class Boots(preparedAttributes: Attributes? = null) : InventoryType(preparedAttr
     }
 }
 
-class Armor(preparedAttributes: Attributes? = null) : InventoryType(preparedAttributes) {
+/**
+ * Armor for the body
+ */
+class Armor(preparedAttributes: Attributes? = null) : InventoryItem(preparedAttributes) {
     override fun initAttributes(): Attributes {
         val armorRange = 15..20
         val dexterityRange = -2..5
@@ -100,7 +118,10 @@ class Armor(preparedAttributes: Attributes? = null) : InventoryType(preparedAttr
     }
 }
 
-class Amulet(preparedAttributes: Attributes? = null) : InventoryType(preparedAttributes) {
+/**
+ * Amulet gives you a good luck!
+ */
+class Amulet(preparedAttributes: Attributes? = null) : InventoryItem(preparedAttributes) {
     override fun initAttributes(): Attributes {
         val luckRange = 5..10
 
@@ -112,7 +133,10 @@ class Amulet(preparedAttributes: Attributes? = null) : InventoryType(preparedAtt
     }
 }
 
-class Weapon(preparedAttributes: Attributes? = null) : InventoryType(preparedAttributes) {
+/**
+ * Enhance dealing damage
+ */
+class Weapon(preparedAttributes: Attributes? = null) : InventoryItem(preparedAttributes) {
     override fun initAttributes(): Attributes {
         val attack = 3..5
 
@@ -124,7 +148,7 @@ class Weapon(preparedAttributes: Attributes? = null) : InventoryType(preparedAtt
     }
 }
 
-fun generateItem(): InventoryType {
+fun generateItem(): InventoryItem {
     when(random.nextInt(6)) {
         0 -> return Helmet()
         1 -> return Gloves()

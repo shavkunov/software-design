@@ -5,6 +5,9 @@ import ru.spbau.shavkunov.roguelike.gamestate.TileType
 import ru.spbau.shavkunov.roguelike.isDexterityHappened
 import ru.spbau.shavkunov.roguelike.isLuckHappend
 
+/**
+ * Implementation of the fight logic. Returns two damaged characters.
+ */
 object CombatResolver {
     fun resolveCombat(
             pair: Pair<ActiveCharacter, ActiveCharacter>,

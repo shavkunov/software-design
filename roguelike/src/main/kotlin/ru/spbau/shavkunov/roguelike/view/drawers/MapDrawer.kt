@@ -8,6 +8,9 @@ import ru.spbau.shavkunov.roguelike.listener.MapListener
 import ru.spbau.shavkunov.roguelike.view.drawers.LayerFactory.getLayer
 import ru.spbau.shavkunov.roguelike.view.drawers.LayerFactory.getLayerWithAttributes
 
+/**
+ * Draws main screen: map and stats of the player
+ */
 class MapDrawer(private val listener: MapListener): Drawer {
     val inventoryHelp = "Press I to open your inventory"
     val stateCommentary = "Your stats:"

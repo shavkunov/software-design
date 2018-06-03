@@ -3,6 +3,9 @@ package ru.spbau.shavkunov.roguelike.characters
 import ru.spbau.shavkunov.roguelike.attributes.*
 import ru.spbau.shavkunov.roguelike.gamestate.TileType
 
+/**
+ * Representing moving character on the board. At the moment, it's either monster or player.
+ */
 class ActiveCharacter(
         val tileType: TileType,
         updatedAttributes: Attributes? = null,
@@ -29,7 +32,7 @@ class ActiveCharacter(
         }
     }
 
-    fun pickItem(item: InventoryType) {
+    fun pickItem(item: InventoryItem) {
         inventory.addItem(item)
     }
 

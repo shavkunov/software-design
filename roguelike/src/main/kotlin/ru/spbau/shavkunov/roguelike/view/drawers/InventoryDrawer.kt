@@ -12,6 +12,9 @@ import ru.spbau.shavkunov.roguelike.view.drawers.LayerFactory.getAttributesWithS
 import ru.spbau.shavkunov.roguelike.view.drawers.LayerFactory.getLayer
 import ru.spbau.shavkunov.roguelike.view.drawers.LayerFactory.getLayerWithAttributes
 
+/**
+ * Draws player's inventory with unused and equiped items
+ */
 class InventoryDrawer(private val listener: InventoryListener) : Drawer {
     val equippedItemsText = "Your Equipment:"
     val unusedItemsText = "Your Inventory:"

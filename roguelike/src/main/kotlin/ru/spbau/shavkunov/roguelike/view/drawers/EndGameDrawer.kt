@@ -5,6 +5,9 @@ import org.codetome.zircon.api.Size
 import org.codetome.zircon.api.terminal.Terminal
 import ru.spbau.shavkunov.roguelike.listener.MapListener
 
+/**
+ * Draws final screen with message
+ */
 class EndGameDrawer(private val finalMessage: String, val listener: MapListener) : Drawer {
     override fun getTerminalSize(): Size {
         return listener.mapSize

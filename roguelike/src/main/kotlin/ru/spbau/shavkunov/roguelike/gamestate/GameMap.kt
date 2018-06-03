@@ -9,6 +9,9 @@ val resources = Paths.get("src/main/resources")
 val defaultMap = "DefaultMap.txt"
 val defaultMapFile = resources.resolve(defaultMap).toFile()
 
+/**
+ * Representing current map with tiles
+ */
 class GameMap(mapInput: File = defaultMapFile) {
     private val gameMap: Array<Array<TileType>>
     val rows: Int = mapInput.readLines().size
@@ -63,10 +66,16 @@ class GameMap(mapInput: File = defaultMapFile) {
     }
 }
 
+/**
+ * Arbitrary object with position on the map
+ */
 data class ObjectWithPosition<T>(var underlyingObject: T, var pos: Position)
 
 typealias MapEntity = ObjectWithPosition<TileType>
 
+/**
+ * Type of the tile on the map
+ */
 enum class TileType(val value: Char) {
     Floor('.'), Lootbox('X'), Wall('#'), Player('@'), Monster('M');
 }

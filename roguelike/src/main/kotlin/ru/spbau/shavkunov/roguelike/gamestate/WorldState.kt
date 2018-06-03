@@ -13,6 +13,9 @@ import ru.spbau.shavkunov.roguelike.random
 
 val additionalRows = 10
 
+/**
+ * Object represents state of the game. All the model data is stores here.
+ */
 open class WorldState {
     private var player: ObjectWithPosition<ActiveCharacter>
     val monsters: MutableMap<Position, ActiveCharacter> = mutableMapOf()
