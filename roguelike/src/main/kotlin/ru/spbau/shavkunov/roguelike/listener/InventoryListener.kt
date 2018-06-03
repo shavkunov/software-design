@@ -9,16 +9,21 @@ class InventoryListener(val worldState: WorldState) : Listener {
     var currentUnused = 0
 
     override fun process(input: Input): ScreenType {
-        var screenType = ScreenType.Inventory
-
         if (!input.isKeyStroke()) {
-            return screenType
+            return ScreenType.Inventory
         }
 
         val inputType = input.getInputType()
+
+        return processInputType(inputType)
+    }
+
+    fun processInputType(inputType: InputType): ScreenType {
+        var screenType = ScreenType.Inventory
+
         when(inputType) {
             InputType.ArrowDown  -> {
-                if (currentUnused + 1 < worldState.getPlayerInventory().unusedItems.size) {
+                if (currentUnused + 1 <= worldState.getPlayerInventory().unusedItems.size) {
                     currentUnused++
                 }
             }

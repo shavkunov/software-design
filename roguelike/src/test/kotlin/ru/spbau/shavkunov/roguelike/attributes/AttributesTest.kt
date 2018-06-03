@@ -1,6 +1,6 @@
 package ru.spbau.shavkunov.roguelike.attributes
 
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class AttributesTest {

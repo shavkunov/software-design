@@ -1,5 +1,6 @@
 package ru.spbau.shavkunov.roguelike.gamestate
 
+import org.codetome.zircon.api.Size
 import ru.spbau.shavkunov.roguelike.attributes.Attributes
 import ru.spbau.shavkunov.roguelike.attributes.Inventory
 import ru.spbau.shavkunov.roguelike.characters.ActiveCharacter
@@ -10,9 +11,11 @@ import ru.spbau.shavkunov.roguelike.navigation.*
 import ru.spbau.shavkunov.roguelike.nextInt
 import ru.spbau.shavkunov.roguelike.random
 
-class WorldState {
+val additionalRows = 10
+
+open class WorldState {
     private var player: ObjectWithPosition<ActiveCharacter>
-    private val monsters: MutableMap<Position, ActiveCharacter> = mutableMapOf()
+    val monsters: MutableMap<Position, ActiveCharacter> = mutableMapOf()
     private val lootBoxesRange = 5..8
     private val monstersRange = 5..10
     val gameMap = GameMap()
@@ -56,6 +59,10 @@ class WorldState {
         })
 
         return tiles
+    }
+
+    open fun getMapSize(): Size {
+        return Size.of(gameMap.columns, gameMap.rows + additionalRows)
     }
 
     fun isPlayerDead(): Boolean {

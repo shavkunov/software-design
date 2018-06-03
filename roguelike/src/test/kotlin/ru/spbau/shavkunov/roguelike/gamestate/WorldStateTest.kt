@@ -1,7 +1,7 @@
 package ru.spbau.shavkunov.roguelike.gamestate
 
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertTrue
+import junit.framework.TestCase.assertTrue
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import ru.spbau.shavkunov.roguelike.navigation.*
 

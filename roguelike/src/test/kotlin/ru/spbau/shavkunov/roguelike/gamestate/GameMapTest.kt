@@ -1,6 +1,6 @@
 package ru.spbau.shavkunov.roguelike.gamestate
 
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class GameMapTest {
