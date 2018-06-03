@@ -106,7 +106,7 @@ open class WorldState {
         val playerStrategy = PlayerStrategy(player, newPosition)
 
         update(newPositionTile, playerStrategy)
-        //moveMonsters()
+        moveMonsters()
     }
 
     private fun moveMonsters() {

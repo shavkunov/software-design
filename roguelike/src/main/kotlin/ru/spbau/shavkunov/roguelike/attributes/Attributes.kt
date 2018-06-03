@@ -31,12 +31,11 @@ data class Attributes(
     }
 
     fun getStringAttributes(): List<String> {
-        val shadowPreviousChars = "     "
-        val attackString    = "Attack    : $attack$shadowPreviousChars"
-        val healthString    = "Health    : $health$shadowPreviousChars"
-        val armorString     = "Armor     : $armor$shadowPreviousChars"
-        val luckString      = "Luck      : $luck$shadowPreviousChars"
-        val dexterityString = "Dexterity : $dexterity$shadowPreviousChars"
+        val attackString    = "Attack    : $attack"
+        val healthString    = "Health    : $health"
+        val armorString     = "Armor     : $armor"
+        val luckString      = "Luck      : $luck"
+        val dexterityString = "Dexterity : $dexterity"
 
         return listOf(attackString, healthString, armorString, luckString, dexterityString)
     }
