@@ -41,6 +41,10 @@ class ActiveCharacter(
         updateCurrentAttributes()
     }
 
+    fun changeHealth(health: Int) {
+        currentAttributes -= Attributes(health = health)
+    }
+
     private fun updateCurrentAttributes() {
         val attack = basicAttributes.attack
         val armor = basicAttributes.armor

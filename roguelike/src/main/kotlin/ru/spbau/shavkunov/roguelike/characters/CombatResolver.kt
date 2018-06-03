@@ -19,13 +19,10 @@ object CombatResolver {
         val firstDamage = getFirstCharacterDamage(first, second, ignoreBonuses)
         val secondDamage = getFirstCharacterDamage(second, first, ignoreBonuses)
 
-        val damagedFirstAttributes = Attributes(health = secondDamage)
-        val damagedSecondAttributes = Attributes(health = firstDamage)
+        first.changeHealth(secondDamage)
+        second.changeHealth(firstDamage)
 
-        val damagedFirst = ActiveCharacter(TileType.Player, first.currentAttributes - damagedFirstAttributes)
-        val damagedSecond = ActiveCharacter(TileType.Monster, second.currentAttributes - damagedSecondAttributes)
-
-        return Pair(damagedFirst, damagedSecond)
+        return Pair(first, second)
     }
 
     private fun getFirstCharacterDamage(first: ActiveCharacter, second: ActiveCharacter, ignoreBonuses: Boolean): Int {

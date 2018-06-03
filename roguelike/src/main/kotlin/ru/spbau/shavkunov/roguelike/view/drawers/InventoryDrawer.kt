@@ -31,7 +31,6 @@ class InventoryDrawer(private val listener: InventoryListener) : Drawer {
     }
 
     override fun draw(terminal: Terminal) {
-        val inventory = worldState.getPlayerInventory()
         val currentSize = getTerminalSize()
 
         val equipLayer = getLayer(currentSize, 0)
@@ -41,6 +40,7 @@ class InventoryDrawer(private val listener: InventoryListener) : Drawer {
         terminal.flush()
 
         var lastOffset = 1
+        val inventory = worldState.getPlayerInventory()
         for (item in inventory.equippedItems.keys) {
             val inventoryItem = inventory.equippedItems[item]!!
             val itemAttributes = inventoryItem.attributes
