@@ -37,15 +37,19 @@ object CombatResolver {
             finalDamage = 0
         }
 
-        var absorbedDamage = finalDamage - second.currentAttributes.absorbingDamage(finalDamage)
-        if (absorbedDamage < 0) {
-            absorbedDamage = 0
+        var absorbedDamage: Double = finalDamage.toDouble() - second.currentAttributes.absorbingDamage(finalDamage)
+        if (absorbedDamage < 1) {
+            absorbedDamage = 0.0
         }
 
         if (ignoreBonuses) {
             return finalDamage
         }
 
-        return absorbedDamage
+        if (second.currentAttributes.health == 1) {
+            return 1
+        }
+
+        return absorbedDamage.toInt()
     }
 }

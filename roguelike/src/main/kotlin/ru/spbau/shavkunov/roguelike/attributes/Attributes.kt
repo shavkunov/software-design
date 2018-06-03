@@ -51,8 +51,8 @@ data class Attributes(
         }
     }
 
-    fun absorbingDamage(damage: Int): Int {
-        return damage * armor / 100
+    fun absorbingDamage(damage: Int): Double {
+        return (damage * armor).toFloat() / 100.0
     }
 }
 

@@ -49,6 +49,6 @@ class ActiveCharacter(
     }
 
     fun isDead(): Boolean {
-        return currentAttributes.health == 0
+        return currentAttributes.health <= 0
     }
 }

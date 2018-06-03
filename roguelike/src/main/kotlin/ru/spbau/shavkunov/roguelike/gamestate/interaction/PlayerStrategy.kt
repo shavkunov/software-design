@@ -21,12 +21,12 @@ class PlayerStrategy(private val player: ObjectWithPosition<ActiveCharacter>,
 
         val damagedPlayer = resolvedPair.first
         val damagedMonster = resolvedPair.second
+        player.underlyingObject = damagedPlayer
 
         if (damagedPlayer.isDead()) {
             return
         }
 
-        player.underlyingObject = damagedPlayer
         monsters[newPosition] = damagedMonster
 
         if (damagedMonster.isDead()) {
