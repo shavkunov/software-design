@@ -68,5 +68,5 @@ data class ObjectWithPosition<T>(var underlyingObject: T, var pos: Position)
 typealias MapEntity = ObjectWithPosition<TileType>
 
 enum class TileType(val value: Char) {
-    Floor('.'), Lootbox('X'), Wall('#'), Player('P'), Monster('M');
+    Floor('.'), Lootbox('X'), Wall('#'), Player('@'), Monster('M');
 }

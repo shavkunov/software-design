@@ -6,7 +6,7 @@ import org.codetome.zircon.api.terminal.Terminal
 import ru.spbau.shavkunov.roguelike.attributes.Attributes
 import ru.spbau.shavkunov.roguelike.listener.MapListener
 
-class MapDrawer(val listener: MapListener): Drawer {
+class MapDrawer(private val listener: MapListener): Drawer {
     val inventoryHelp = "Press I to open your inventory"
     val stateCommentary = "Your stats:"
 

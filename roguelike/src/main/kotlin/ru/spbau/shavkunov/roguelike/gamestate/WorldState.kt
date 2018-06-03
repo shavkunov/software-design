@@ -17,7 +17,7 @@ open class WorldState {
     private var player: ObjectWithPosition<ActiveCharacter>
     val monsters: MutableMap<Position, ActiveCharacter> = mutableMapOf()
     private val lootBoxesRange = 5..8
-    private val monstersRange = 5..10
+    private val monstersRange = 10..15
     val gameMap = GameMap()
         get() {
             if (player != null) {
@@ -106,7 +106,7 @@ open class WorldState {
         val playerStrategy = PlayerStrategy(player, newPosition)
 
         update(newPositionTile, playerStrategy)
-        moveMonsters()
+        //moveMonsters()
     }
 
     private fun moveMonsters() {

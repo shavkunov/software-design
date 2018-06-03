@@ -34,6 +34,7 @@ fun getLayerWithAttributes(title: String, gameMap: GameMap,
     if (isTitleHighlight) {
         layer.setForegroundColor(TextColorFactory.fromString("#ff0000"))
         layer.putText(title, Position.of(0, 0))
+
         layer.setForegroundColor(TextColorFactory.DEFAULT_FOREGROUND_COLOR)
     } else {
         layer.putText(title, Position.of(0, 0))

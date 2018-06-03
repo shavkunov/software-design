@@ -5,16 +5,21 @@ import ru.spbau.shavkunov.roguelike.gamestate.TileType
 
 class ActiveCharacter(
         val tileType: TileType,
-        updatedAttributes: Attributes? = null
+        updatedAttributes: Attributes? = null,
+        createdBasicAttributes: Attributes? = null
 ) {
     private val basicAttributes: Attributes
     var currentAttributes: Attributes
     val inventory = Inventory()
 
     init {
-        when (tileType) {
-            TileType.Player -> basicAttributes = getCharacterBasicAttributes()
-            else -> basicAttributes = getMonsterBasicAttributes()
+        if (createdBasicAttributes == null) {
+            when (tileType) {
+                TileType.Player -> basicAttributes = getCharacterBasicAttributes()
+                else -> basicAttributes = getMonsterBasicAttributes()
+            }
+        } else {
+            basicAttributes = createdBasicAttributes
         }
 
         if (updatedAttributes != null) {

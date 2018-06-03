@@ -1,7 +1,9 @@
 package ru.spbau.shavkunov.roguelike.view
 
+import org.codetome.zircon.api.Size
 import org.codetome.zircon.api.builder.TerminalBuilder
 import org.codetome.zircon.api.resource.CP437TilesetResource
+import org.codetome.zircon.api.terminal.Terminal
 import ru.spbau.shavkunov.roguelike.listener.InventoryListener
 import ru.spbau.shavkunov.roguelike.listener.Listener
 import ru.spbau.shavkunov.roguelike.listener.MapListener
@@ -20,14 +22,7 @@ class GameView {
     private val mapDrawer = MapDrawer(mapListener)
     private val inventoryDrawer = InventoryDrawer(inventoryListener)
     private var activeListener: Listener = mapListener
-
-    private val gameTitle = "Roguelike"
-    private val terminal = TerminalBuilder
-            .newBuilder()
-            .initialTerminalSize(mapListener.mapSize)
-            .font(CP437TilesetResource.WANDERLUST_16X16.toFont())
-            .title(gameTitle)
-            .build()
+    private var terminal = TerminalFactory.getTerminalWithSize(mapListener.mapSize)
 
     init {
         terminal.onInput(Consumer {
@@ -35,8 +30,20 @@ class GameView {
 
             terminal.clear()
             when(screenType) {
-                ScreenType.Map       -> mapDrawer.draw(terminal)
-                ScreenType.Inventory -> inventoryDrawer.draw(terminal)
+                ScreenType.Map       -> {
+                    if (activeListener != mapListener) {
+                        terminal = TerminalFactory.getTerminalWithSize(mapDrawer.getTerminalSize())
+                    }
+
+                    mapDrawer.draw(terminal)
+                }
+                ScreenType.Inventory -> {
+                    if (activeListener != inventoryListener) {
+                        terminal = TerminalFactory.getTerminalWithSize(inventoryDrawer.getTerminalSize())
+                    }
+
+                    inventoryDrawer.draw(terminal)
+                }
                 ScreenType.LostGame  -> EndGameDrawer(lostMessage, mapListener).draw(terminal)
                 ScreenType.WinGame   -> EndGameDrawer(winMessage, mapListener).draw(terminal)
             }
@@ -47,5 +54,18 @@ class GameView {
                 activeListener = mapListener
             }
         })
+    }
+}
+
+object TerminalFactory {
+    private val gameTitle = "Roguelike"
+
+    fun getTerminalWithSize(size: Size): Terminal {
+        return TerminalBuilder
+                .newBuilder()
+                .initialTerminalSize(size)
+                .font(CP437TilesetResource.WANDERLUST_16X16.toFont())
+                .title(gameTitle)
+                .build()
     }
 }

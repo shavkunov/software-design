@@ -7,8 +7,9 @@ import org.codetome.zircon.api.graphics.Layer
 import org.codetome.zircon.api.terminal.Terminal
 import ru.spbau.shavkunov.roguelike.attributes.Attributes
 import ru.spbau.shavkunov.roguelike.listener.InventoryListener
+import ru.spbau.shavkunov.roguelike.view.TerminalFactory
 
-class InventoryDrawer(val listener: InventoryListener) : Drawer {
+class InventoryDrawer(private val listener: InventoryListener) : Drawer {
     val equippedItemsText = "Your equipment:"
     val unusedItemsText = "Your Inventory:"
     val help = "use enter to equip item"
@@ -26,8 +27,6 @@ class InventoryDrawer(val listener: InventoryListener) : Drawer {
     override fun draw(terminal: Terminal) {
         val inventory = worldState.getPlayerInventory()
         val currentSize = getTerminalSize()
-
-        terminal.setSize(currentSize)
 
         val equipLayer = getPanelLayer(currentSize, 0)
         equipLayer.putText(equippedItemsText)
