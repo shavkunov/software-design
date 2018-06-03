@@ -41,8 +41,8 @@ class ActiveCharacter(
         updateCurrentAttributes()
     }
 
-    fun changeHealth(health: Int) {
-        currentAttributes -= Attributes(health = health)
+    fun reduceHealth(healthPoints: Int) {
+        currentAttributes -= Attributes(health = healthPoints)
     }
 
     private fun updateCurrentAttributes() {

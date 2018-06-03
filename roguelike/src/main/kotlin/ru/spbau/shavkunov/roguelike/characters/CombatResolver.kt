@@ -1,9 +1,10 @@
 package ru.spbau.shavkunov.roguelike.characters
 
-import ru.spbau.shavkunov.roguelike.attributes.Attributes
-import ru.spbau.shavkunov.roguelike.gamestate.TileType
+import org.slf4j.LoggerFactory
 import ru.spbau.shavkunov.roguelike.isDexterityHappened
 import ru.spbau.shavkunov.roguelike.isLuckHappend
+
+private val LOGGER = LoggerFactory.getLogger("CombatResolver")
 
 /**
  * Implementation of the fight logic. Returns two damaged characters.
@@ -19,9 +20,10 @@ object CombatResolver {
         val firstDamage = getFirstCharacterDamage(first, second, ignoreBonuses)
         val secondDamage = getFirstCharacterDamage(second, first, ignoreBonuses)
 
-        first.changeHealth(secondDamage)
-        second.changeHealth(firstDamage)
+        first.reduceHealth(secondDamage)
+        second.reduceHealth(firstDamage)
 
+        LOGGER.info("Player were in combat: {} taken and dealt {}", secondDamage, firstDamage)
         return Pair(first, second)
     }
 
@@ -37,9 +39,9 @@ object CombatResolver {
             finalDamage = 0
         }
 
-        var absorbedDamage: Double = finalDamage.toDouble() - second.currentAttributes.absorbingDamage(finalDamage)
-        if (absorbedDamage < 1) {
-            absorbedDamage = 0.0
+        var absorbedDamage: Int = finalDamage - second.currentAttributes.absorbingDamage(finalDamage)
+        if (absorbedDamage < 0) {
+            absorbedDamage = 0
         }
 
         if (ignoreBonuses) {
@@ -50,6 +52,6 @@ object CombatResolver {
             return 1
         }
 
-        return absorbedDamage.toInt()
+        return absorbedDamage
     }
 }
