@@ -40,6 +40,7 @@ class InventoryListenerTest {
             }
         }
 
+        worldState.getPlayer().inventory.addItem(Armor())
         val listener = InventoryListener(worldState)
         listener.processInputType(InputType.ArrowDown)
         listener.processInputType(InputType.ArrowDown)

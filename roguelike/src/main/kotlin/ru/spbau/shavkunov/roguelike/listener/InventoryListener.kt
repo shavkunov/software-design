@@ -23,7 +23,7 @@ class InventoryListener(val worldState: WorldState) : Listener {
 
         when(inputType) {
             InputType.ArrowDown  -> {
-                if (currentUnused + 1 <= worldState.getPlayerInventory().unusedItems.size) {
+                if (currentUnused + 1 < worldState.getPlayerInventory().unusedItems.size) {
                     currentUnused++
                 }
             }

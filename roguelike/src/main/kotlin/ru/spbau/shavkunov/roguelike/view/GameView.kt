@@ -58,7 +58,7 @@ class GameView {
 }
 
 object TerminalFactory {
-    private val gameTitle = "Roguelike"
+    private const val gameTitle = "Roguelike"
 
     fun getTerminalWithSize(size: Size): Terminal {
         return TerminalBuilder

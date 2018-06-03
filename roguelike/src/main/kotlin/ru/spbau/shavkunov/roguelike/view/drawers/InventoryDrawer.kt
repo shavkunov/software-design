@@ -13,7 +13,7 @@ import ru.spbau.shavkunov.roguelike.view.drawers.LayerFactory.getLayer
 import ru.spbau.shavkunov.roguelike.view.drawers.LayerFactory.getLayerWithAttributes
 
 class InventoryDrawer(private val listener: InventoryListener) : Drawer {
-    val equippedItemsText = "Your equipment:"
+    val equippedItemsText = "Your Equipment:"
     val unusedItemsText = "Your Inventory:"
     val help = "use enter to equip item"
     val attributesOffset = Attributes.getStandardOffset()
@@ -36,13 +36,13 @@ class InventoryDrawer(private val listener: InventoryListener) : Drawer {
         terminal.pushLayer(equipLayer)
         terminal.flush()
 
-        var lastOffset = 0
+        var lastOffset = 1
         for ((index, item) in inventory.equippedItems.keys.withIndex()) {
             val inventoryItem = inventory.equippedItems[item]!!
             val itemAttributes = inventoryItem.attributes
             val itemTitle = inventoryItem.getTitle()
 
-            lastOffset = index * attributesOffset
+            lastOffset += attributesOffset
             val layer = getAttributesWithSize(itemTitle, currentSize, itemAttributes, lastOffset)
 
             terminal.pushLayer(layer)
@@ -50,9 +50,11 @@ class InventoryDrawer(private val listener: InventoryListener) : Drawer {
         }
 
         var inventoryLayer = getLayer(currentSize, lastOffset)
-        if (lastOffset == 0) {
+        if (lastOffset == 1) {
             inventoryLayer = getLayer(currentSize, lastOffset + 1)
+            lastOffset++
         }
+        lastOffset++
 
         inventoryLayer.putText(unusedItemsText)
         terminal.pushLayer(inventoryLayer)
@@ -63,14 +65,14 @@ class InventoryDrawer(private val listener: InventoryListener) : Drawer {
             val itemTitle = item.getTitle()
             val isHighlight = index == listener.currentUnused
 
-            lastOffset += index * attributesOffset
             val layer =  getAttributesWithSize(itemTitle, currentSize, itemAttributes, lastOffset, isHighlight)
+            lastOffset += attributesOffset
             terminal.pushLayer(layer)
             terminal.flush()
         }
 
         var helpLayer = getLayer(currentSize, lastOffset)
-        if (lastOffset == 0) {
+        if (lastOffset == 1) {
             helpLayer = getLayer(currentSize, lastOffset + 2)
         }
         helpLayer.putText(help)
