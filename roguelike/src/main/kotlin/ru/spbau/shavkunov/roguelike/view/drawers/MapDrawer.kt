@@ -19,6 +19,7 @@ class MapDrawer(private val listener: MapListener): Drawer {
     override fun draw(terminal: Terminal) {
         val worldState = listener.getCurrentState()
 
+        terminal.clear()
         val gameMap = worldState.gameMap
         for (row in 0 until gameMap.rows) {
             for (column in 0 until gameMap.columns) {

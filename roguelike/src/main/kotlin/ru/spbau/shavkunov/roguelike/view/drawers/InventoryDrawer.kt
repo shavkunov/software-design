@@ -33,17 +33,18 @@ class InventoryDrawer(private val listener: InventoryListener) : Drawer {
 
         val equipLayer = getLayer(currentSize, 0)
         equipLayer.putText(equippedItemsText)
+        terminal.clear()
         terminal.pushLayer(equipLayer)
         terminal.flush()
 
         var lastOffset = 1
-        for ((index, item) in inventory.equippedItems.keys.withIndex()) {
+        for (item in inventory.equippedItems.keys) {
             val inventoryItem = inventory.equippedItems[item]!!
             val itemAttributes = inventoryItem.attributes
             val itemTitle = inventoryItem.getTitle()
 
-            lastOffset += attributesOffset
             val layer = getAttributesWithSize(itemTitle, currentSize, itemAttributes, lastOffset)
+            lastOffset += attributesOffset
 
             terminal.pushLayer(layer)
             terminal.flush()

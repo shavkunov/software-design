@@ -29,6 +29,7 @@ class GameView {
             val screenType = activeListener.process(it)
 
             terminal.clear()
+            terminal.drainLayers()
             when(screenType) {
                 ScreenType.Map       -> {
                     if (activeListener != mapListener) {

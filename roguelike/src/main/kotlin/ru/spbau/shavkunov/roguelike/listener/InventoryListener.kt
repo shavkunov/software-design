@@ -33,7 +33,7 @@ class InventoryListener(val worldState: WorldState) : Listener {
                 }
             }
             InputType.Enter      -> {
-                worldState.getPlayerInventory().equipItem(currentUnused)
+                worldState.getPlayer().equipItem(currentUnused)
             }
             InputType.Escape     -> screenType = ScreenType.Map
             else                 -> {}
