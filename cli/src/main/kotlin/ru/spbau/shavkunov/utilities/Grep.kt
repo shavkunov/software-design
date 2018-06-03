@@ -6,6 +6,7 @@ import org.apache.commons.cli.DefaultParser
 import org.apache.commons.cli.Option
 import org.apache.commons.cli.Options
 import ru.spbau.shavkunov.InvalidArgumentException
+import ru.spbau.shavkunov.WorkingDirectory
 import java.nio.file.Paths
 import java.util.regex.Pattern
 
@@ -33,7 +34,11 @@ object Grep: Utility {
      * -A n -- add to output n additional lines after found line
      */
     @Throws(InvalidArgumentException::class)
-    override fun execute(args: List<String>, input: String): ExecutionResult {
+    override fun execute(
+        workingDirectory: WorkingDirectory,
+        args: List<String>,
+        input: String
+    ): ExecutionResult {
         val commandLine = parser.parse(options, args.toTypedArray())
 
         val insensitivity = commandLine.hasOption("i")
@@ -67,7 +72,13 @@ object Grep: Utility {
         val files = commandLine.args.drop(1)
         val pattern = commandLine.args[0]
         val output = files.joinToString("\n", "", "") {
-            grep(getFileContent(Paths.get(it)), pattern, insensitivity, wholeWords, additionalLines)
+            grep(getFileContent(
+                workingDirectory.getPath().resolve(Paths.get(it))),
+                pattern,
+                insensitivity,
+                wholeWords,
+                additionalLines
+            )
         }
 
         return ExecutionResult(output, false)

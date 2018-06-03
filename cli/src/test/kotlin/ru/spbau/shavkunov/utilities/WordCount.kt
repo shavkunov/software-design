@@ -1,13 +1,16 @@
-package utilities
+package ru.spbau.shavkunov.utilities
 
 import org.apache.commons.io.FileUtils
 import org.junit.Test
-import ru.spbau.shavkunov.utilities.WordCount
+import ru.spbau.shavkunov.WorkingDirectory
 import java.nio.charset.Charset
+import java.nio.file.Paths
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 
 class WordCountTest {
+    val workingDirectory = WorkingDirectory(Paths.get(System.getProperty("user.dir")))
+
     @Test
     fun testFromFile() {
         val folder = createTempDir("test")
@@ -23,7 +26,7 @@ class WordCountTest {
         FileUtils.writeStringToFile(first, content1, Charset.defaultCharset())
         FileUtils.writeStringToFile(second, content2, Charset.defaultCharset())
 
-        val result = WordCount.execute(listOf(first.absolutePath, second.absolutePath), "")
+        val result = WordCount.execute(workingDirectory, listOf(first.absolutePath, second.absolutePath), "")
 
         assertEquals("2 4 17\n1 1 6", result.output)
         assertFalse(result.isExit)
@@ -32,7 +35,7 @@ class WordCountTest {
     @Test
     fun testFromInput() {
         val content = "123 123\nololo\n123"
-        val result = WordCount.execute(listOf(), content)
+        val result = WordCount.execute(workingDirectory, listOf(), content)
 
         assertEquals("2 4 17", result.output)
         assertFalse(result.isExit)

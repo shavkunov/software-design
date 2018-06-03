@@ -1,4 +1,4 @@
-package parsers
+package ru.spbau.shavkunov.parsers
 
 import ru.spbau.shavkunov.interpreter.EscapeChar
 

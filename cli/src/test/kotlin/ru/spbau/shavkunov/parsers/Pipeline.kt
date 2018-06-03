@@ -1,11 +1,10 @@
-package parsers
+package ru.spbau.shavkunov.parsers
 
 import org.junit.Test
 import ru.spbau.shavkunov.Environment
 import ru.spbau.shavkunov.interpreter.PipelineParser
 import ru.spbau.shavkunov.utilities.Echo
 import ru.spbau.shavkunov.utilities.WordCount
-import java.nio.charset.Charset
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 

@@ -1,4 +1,4 @@
-package parsers
+package ru.spbau.shavkunov.parsers
 
 import org.junit.Test
 import ru.spbau.shavkunov.Environment

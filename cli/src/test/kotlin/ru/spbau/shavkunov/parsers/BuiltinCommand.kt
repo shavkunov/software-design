@@ -1,11 +1,9 @@
-package parsers
+package ru.spbau.shavkunov.parsers
 
 import org.junit.Test
 import ru.spbau.shavkunov.Environment
 import ru.spbau.shavkunov.interpreter.BuiltinCommandParser
-import ru.spbau.shavkunov.utilities.Cat
 import ru.spbau.shavkunov.utilities.Echo
-import java.io.IOException
 import kotlin.test.assertEquals
 
 class BuiltinCommandTest {

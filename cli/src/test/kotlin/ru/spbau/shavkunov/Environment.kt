@@ -1,3 +1,5 @@
+package ru.spbau.shavkunov
+
 import org.junit.Test
 import ru.spbau.shavkunov.Environment
 import ru.spbau.shavkunov.utilities.Cat

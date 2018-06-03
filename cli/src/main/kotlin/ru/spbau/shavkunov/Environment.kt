@@ -3,6 +3,8 @@ package ru.spbau.shavkunov
 import ru.spbau.shavkunov.utilities.*
 import java.io.IOException
 import java.nio.charset.Charset
+import java.nio.file.Path
+import java.nio.file.Paths
 
 
 /**
@@ -13,6 +15,8 @@ import java.nio.charset.Charset
 class Environment {
     private val commands: MutableMap<String, Utility> = mutableMapOf()
     private val variables: MutableMap<String, String> = mutableMapOf()
+
+    private val workingDirectory = WorkingDirectory(Paths.get(System.getProperty("user.dir")))
 
     /**
      * Adding utility to execute
@@ -28,7 +32,7 @@ class Environment {
      */
     fun executeCommand(name: String, args: List<String>, input: String): ExecutionResult {
         if (commands[name] != null) {
-            return commands[name]!!.execute(args, input)
+            return commands[name]!!.execute(workingDirectory, args, input)
         }
 
         return try {
@@ -74,6 +78,21 @@ class Environment {
     }
 }
 
+/**
+ * This class stores path to a current working directory and allows to change it.
+ */
+class WorkingDirectory(path: Path) {
+    private var path: Path = path.toAbsolutePath().normalize()
+
+    fun getPath(): Path {
+        return path
+    }
+
+    fun setPath(newPath: Path) {
+        path = newPath.toAbsolutePath().normalize()
+    }
+}
+
 fun createStandardEnvironment(): Environment {
     val environment = Environment()
     environment.addUtility("cat", Cat)
@@ -82,6 +101,8 @@ fun createStandardEnvironment(): Environment {
     environment.addUtility("pwd", Pwd)
     environment.addUtility("wc", WordCount)
     environment.addUtility("grep", Grep)
+    environment.addUtility("cd", ChangeDirectory)
+    environment.addUtility("ls", ListFiles)
 
     return environment
 }
