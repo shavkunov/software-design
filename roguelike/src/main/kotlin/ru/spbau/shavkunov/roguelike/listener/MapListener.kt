@@ -4,12 +4,15 @@ import org.codetome.zircon.api.Size
 import org.codetome.zircon.api.input.Input
 import org.codetome.zircon.api.input.InputType
 import org.codetome.zircon.api.input.KeyStroke
+import org.slf4j.LoggerFactory
 import ru.spbau.shavkunov.roguelike.gamestate.WorldState
 import ru.spbau.shavkunov.roguelike.navigation.Down
 import ru.spbau.shavkunov.roguelike.navigation.Left
 import ru.spbau.shavkunov.roguelike.navigation.Right
 import ru.spbau.shavkunov.roguelike.navigation.Up
 import ru.spbau.shavkunov.roguelike.view.ScreenType
+
+private val LOGGER = LoggerFactory.getLogger("MapListener")
 
 class MapListener: Listener {
     val worldState = WorldState()
@@ -30,13 +33,29 @@ class MapListener: Listener {
         var screenType = ScreenType.Map
 
         when(inputType) {
-            InputType.ArrowLeft  -> worldState.playerUpdate(Left)
-            InputType.ArrowDown  -> worldState.playerUpdate(Down)
-            InputType.ArrowRight -> worldState.playerUpdate(Right)
-            InputType.ArrowUp    -> worldState.playerUpdate(Up)
+            InputType.ArrowLeft  -> {
+                LOGGER.info("Map: pressed left arrow")
+                worldState.playerUpdate(Left)
+            }
+
+            InputType.ArrowDown  -> {
+                LOGGER.info("Map: pressed down arrow")
+                worldState.playerUpdate(Down)
+            }
+
+            InputType.ArrowRight -> {
+                LOGGER.info("Map: pressed right arrow")
+                worldState.playerUpdate(Right)
+            }
+
+            InputType.ArrowUp    -> {
+                LOGGER.info("Map: pressed up arrow")
+                worldState.playerUpdate(Up)
+            }
 
             InputType.Character  -> when(stroke.getCharacter()) {
                 'I', 'i' -> {
+                    LOGGER.info("Map: opening player's inventory")
                     screenType = ScreenType.Inventory
                 }
                 else -> {}
@@ -52,10 +71,12 @@ class MapListener: Listener {
         }
 
         if (worldState.monstersLeft() == 0) {
+            LOGGER.info("There is no monsters left!")
             screenType = ScreenType.WinGame
         }
 
         if (worldState.isPlayerDead()) {
+            LOGGER.info("Player is dead")
             screenType = ScreenType.LostGame
         }
 

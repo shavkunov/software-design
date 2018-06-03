@@ -1,10 +1,13 @@
 package ru.spbau.shavkunov.roguelike.gamestate.interaction
 
+import org.slf4j.LoggerFactory
 import ru.spbau.shavkunov.roguelike.attributes.generateItem
 import ru.spbau.shavkunov.roguelike.characters.ActiveCharacter
 import ru.spbau.shavkunov.roguelike.characters.CombatResolver
 import ru.spbau.shavkunov.roguelike.gamestate.ObjectWithPosition
 import ru.spbau.shavkunov.roguelike.navigation.Position
+
+private val LOGGER = LoggerFactory.getLogger("PlayerStrategy")
 
 class PlayerStrategy(private val player: ObjectWithPosition<ActiveCharacter>,
                      private val newPosition: Position
@@ -30,6 +33,7 @@ class PlayerStrategy(private val player: ObjectWithPosition<ActiveCharacter>,
         monsters[newPosition] = damagedMonster
 
         if (damagedMonster.isDead()) {
+            LOGGER.info("Player killed the monster on the position: {}", newPosition)
             monsters.remove(newPosition)
         }
     }

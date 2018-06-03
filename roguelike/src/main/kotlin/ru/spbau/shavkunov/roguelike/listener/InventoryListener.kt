@@ -2,8 +2,11 @@ package ru.spbau.shavkunov.roguelike.listener
 
 import org.codetome.zircon.api.input.Input
 import org.codetome.zircon.api.input.InputType
+import org.slf4j.LoggerFactory
 import ru.spbau.shavkunov.roguelike.gamestate.WorldState
 import ru.spbau.shavkunov.roguelike.view.ScreenType
+
+private val LOGGER = LoggerFactory.getLogger("InventoryListener")
 
 class InventoryListener(val worldState: WorldState) : Listener {
     var currentUnused = 0
@@ -23,19 +26,25 @@ class InventoryListener(val worldState: WorldState) : Listener {
 
         when(inputType) {
             InputType.ArrowDown  -> {
+                LOGGER.info("Inventory: pressed down arrow")
                 if (currentUnused + 1 < worldState.getPlayerInventory().unusedItems.size) {
                     currentUnused++
                 }
             }
             InputType.ArrowUp    -> {
+                LOGGER.info("Inventory: pressed up arrow")
                 if (currentUnused - 1 >= 0) {
                     currentUnused--
                 }
             }
             InputType.Enter      -> {
+                LOGGER.info("Inventory: pressed enter")
                 worldState.getPlayer().equipItem(currentUnused)
             }
-            InputType.Escape     -> screenType = ScreenType.Map
+            InputType.Escape     -> {
+                LOGGER.info("Inventory: pressed escape")
+                screenType = ScreenType.Map
+            }
             else                 -> {}
         }
 
