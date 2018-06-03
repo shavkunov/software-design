@@ -5,6 +5,8 @@ import org.codetome.zircon.api.Size
 import org.codetome.zircon.api.terminal.Terminal
 import ru.spbau.shavkunov.roguelike.attributes.Attributes
 import ru.spbau.shavkunov.roguelike.listener.MapListener
+import ru.spbau.shavkunov.roguelike.view.drawers.LayerFactory.getLayer
+import ru.spbau.shavkunov.roguelike.view.drawers.LayerFactory.getLayerWithAttributes
 
 class MapDrawer(private val listener: MapListener): Drawer {
     val inventoryHelp = "Press I to open your inventory"
@@ -16,8 +18,6 @@ class MapDrawer(private val listener: MapListener): Drawer {
 
     override fun draw(terminal: Terminal) {
         val worldState = listener.getCurrentState()
-
-        terminal.setSize(getTerminalSize())
 
         val gameMap = worldState.gameMap
         for (row in 0 until gameMap.rows) {
