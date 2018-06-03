@@ -36,14 +36,18 @@ class GameView {
             when(screenType) {
                 ScreenType.Map       -> {
                     if (activeListener != mapListener) {
+                        val prevTerminal = terminal
                         terminal = TerminalFactory.getTerminalWithSize(mapDrawer.getTerminalSize())
+                        prevTerminal.close()
                     }
 
                     mapDrawer.draw(terminal)
                 }
                 ScreenType.Inventory -> {
                     if (activeListener != inventoryListener) {
+                        val prevTerminal = terminal
                         terminal = TerminalFactory.getTerminalWithSize(inventoryDrawer.getTerminalSize())
+                        prevTerminal.close()
                     }
 
                     inventoryDrawer.draw(terminal)
