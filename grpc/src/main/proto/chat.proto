@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+package ru.spbau.shavkunov.grpc;
+option java_outer_classname = "Chat";
+
+message ChatMessage {
+    string from = 1;
+    string message = 2;
+    google.protobuf.Timestamp timestamp = 3;
+}
+
+message Empty {}
+
+service ChatService {
+    rpc chat(ChatMessage) returns (Empty) {};
+}
